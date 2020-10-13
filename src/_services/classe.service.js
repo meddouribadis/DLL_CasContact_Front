@@ -1,10 +1,11 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
 
-export const categoryService = {
+export const classeService = {
     getAll,
     getById,
-    postCategory,
+    getByName,
+    postClasse,
     update,
     delete: _delete
 };
@@ -15,7 +16,7 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/categories`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/classes`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -24,27 +25,36 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/categories/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/classes/${id}`, requestOptions).then(handleResponse);
 }
 
-function postCategory(category) {
+function getByName(name) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}//byName//${name}`, requestOptions).then(handleResponse);
+}
+
+function postClasse(classe) {
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(category)
+        body: JSON.stringify(classe)
     };
 
-    return fetch(`${config.apiUrl}/categories`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/classes`, requestOptions).then(handleResponse);
 }
 
-function update(category) {
+function update(classe) {
     const requestOptions = {
         method: 'PUT',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(category)
+        body: JSON.stringify(classe)
     };
 
-    return fetch(`${config.apiUrl}/categories/${category.id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/classe/${classe.id}`, requestOptions).then(handleResponse);
 }
 
 function _delete(id) {
@@ -53,7 +63,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/categories/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/classes/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

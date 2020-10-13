@@ -4,7 +4,7 @@ import { authentication } from './authentication.reducer';
 import { registration } from './registration.reducer';
 import { users } from './users.reducer';
 import { courses } from './courses.reducer';
-import { categories } from './categories.reducer';
+import { classes } from './classes.reducer';
 import { alert } from './alert.reducer';
 
 const rootReducer = combineReducers({
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     registration,
     users,
     courses,
-    categories,
+    classes,
     alert
 });
 
