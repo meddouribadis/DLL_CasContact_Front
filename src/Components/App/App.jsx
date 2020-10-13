@@ -43,6 +43,7 @@ function App() {
               <PrivateRoute exact path="/" component={HomePage} />
               <Route path="/login" component={LoginPage} />
               <Route path="/register" component={RegisterPage} />
+              <Redirect from="*" to="/" />
             </Switch>
           </Router>
         </div>
