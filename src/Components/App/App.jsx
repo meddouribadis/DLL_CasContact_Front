@@ -8,10 +8,12 @@ import { PrivateRoute } from "../../_components";
 
 // Pages
 import { HomePage } from "../../Pages/Home";
+import { LoginPage } from "../../Pages/Login";
+import { RegisterPage } from "../../Pages/Register";
 
 // Components
-import { Navbar } from "../Navbar";
-import { FooterBar } from "../Footer";
+/*import { Navbar } from "../Navbar";
+import { FooterBar } from "../Footer";*/
 
 import "./App.css";
 
@@ -35,6 +37,8 @@ function App() {
           <Router history={history}>
             <Switch>
               <PrivateRoute exact path="/" component={HomePage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/register" component={RegisterPage} />
             </Switch>
           </Router>
         </div>
