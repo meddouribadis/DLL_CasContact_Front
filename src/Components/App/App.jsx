@@ -16,6 +16,7 @@ import { NavBar } from "../NavBar";
 import { Footer } from "../Footer";
 
 import "./App.css";
+import {DashboardRouter} from "../../Pages/Dashboard";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
               <PrivateRoute exact path="/" component={HomePage} />
               <Route path="/login" component={LoginPage} />
               <Route path="/register" component={RegisterPage} />
+              <Route path="/dashboard" component={DashboardRouter} />
               <Redirect from="*" to="/" />
             </Switch>
           </Router>
