@@ -12,10 +12,11 @@ import { LoginPage } from "../../Pages/Login";
 import { RegisterPage } from "../../Pages/Register";
 
 // Components
-/*import { Navbar } from "../Navbar";
-import { FooterBar } from "../Footer";*/
+import { NavBar } from "../NavBar";
+import { Footer } from "../Footer";
 
 import "./App.css";
+
 
 function App() {
   const alert = useSelector((state) => state.alert);
@@ -29,6 +30,9 @@ function App() {
 
   return (
     <div className={"main"}>
+
+      <NavBar/>
+
       <div className="container-fluid">
         <div className="col-md-8 offset-md-2">
           {alert.message && (
@@ -43,6 +47,9 @@ function App() {
           </Router>
         </div>
       </div>
+
+      <Footer/>
+
     </div>
   );
 }
