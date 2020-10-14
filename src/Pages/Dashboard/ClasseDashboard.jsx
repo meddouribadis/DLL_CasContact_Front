@@ -98,38 +98,72 @@ function EditClasse() {
                 {classes.loading && <em>Chargement...</em>}
                 {classes.error && <span className="text-danger">ERROR: {classes.error}</span>}
                 {classe !== null &&
-                <form name="form" onSubmit={handleSubmit}>
-                    <h1>Modifier le cours</h1>
-                    <hr/>
+                    <form name="form" onSubmit={handleSubmit}>
+                        <h1>Modifier la classe : {classe.nom}</h1>
+                        <hr/>
 
-                    <div className="form-group">
-                        <label>Nom de la classe</label>
-                        <input type="text" name="nom" value={classe.nom} onChange={handleChange}
-                               className={'form-control' + (submitted && !classe.nom ? ' is-invalid' : '')}
-                               placeholder="Nom de la classe"/>
-                        {submitted && !classe.nom &&
-                        <div className="invalid-feedback">Le nom de classe est requis</div>
-                        }
-                    </div>
+                        <div className="form-group">
+                            <label>Nom de la classe</label>
+                            <input type="text" name="nom" value={classe.nom} onChange={handleChange}
+                                   className={'form-control' + (submitted && !classe.nom ? ' is-invalid' : '')}
+                                   placeholder="Nom de la classe"/>
+                            {submitted && !classe.nom &&
+                            <div className="invalid-feedback">Le nom de classe est requis</div>
+                            }
+                        </div>
 
-                    <div className="form-group">
-                        <label>Code de la classe</label>
-                        <input type="text" name="code" value={classe.code} onChange={handleChange}
-                               className={'form-control' + (submitted && !classe.code ? ' is-invalid' : '')}
-                               placeholder="Nom de la classe"/>
-                        {submitted && !classe.code &&
-                        <div className="invalid-feedback">Le code de classe est requis</div>
-                        }
-                    </div>
+                        <div className="form-group">
+                            <label>Code de la classe</label>
+                            <input type="text" name="code" value={classe.code} onChange={handleChange}
+                                   className={'form-control' + (submitted && !classe.code ? ' is-invalid' : '')}
+                                   placeholder="Nom de la classe"/>
+                            {submitted && !classe.code &&
+                            <div className="invalid-feedback">Le code de classe est requis</div>
+                            }
+                        </div>
 
-                    <br/>
-                    <div className="form-group">
-                        <button className="btn btn-primary">
-                            Valider
-                        </button>
-                        <Link to="/dashboard/classe/manage" className="btn btn-link">Annuler</Link>
+                        <br/>
+                        <div className="form-group">
+                            <button className="btn btn-primary">
+                                Valider
+                            </button>
+                            <Link to="/dashboard/classe/manage" className="btn btn-link">Annuler</Link>
+                        </div>
+                    </form>
+                }
+                {classe !== null &&
+                    <div className="list_students">
+                        <h2>Liste des élèves de cette classe</h2>
+                        <table className="table">
+                            <thead className={"thead-dark"}>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Code</th>
+                                <th scope="col">Numéro Etudiant</th>
+                                <th scope="col">Infection</th>
+                                <th scope="col">Action</th>
+
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            {classe.students.map((student, index) =>
+                                <tr>
+                                    <th scope="row">{student.id}</th>
+                                    <td>{student.firstName}</td>
+                                    <td>{student.lastName}</td>
+                                    <td>{student.numEtud}</td>
+                                    <td style={{backgroundColor: '#64ea83'}}>Non</td>
+                                    <td>
+                                        <Link to={{pathname: `/dashboard/classe/edit/${student.id}`}} className="btn btn-primary">Modifier</Link>
+                                        <Link to={{pathname: `/dashboard/classe/edit/${student.id}`}} className="btn btn-danger">Retirer</Link>
+                                    </td>
+                                </tr>
+                            )}
+                            </tbody>
+                        </table>
                     </div>
-                </form>
                 }
             </div>
         </div>
