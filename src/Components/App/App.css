@@ -1,16 +1,21 @@
 .site-header {
-    background-color: rgba(0, 0, 0, .85);
+    background-color: #005793e8;
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
+    padding: .75rem;
     margin-bottom: 1.5rem;
 }
 
 .site-header a {
-    color: #999;
+    color: white;
     transition: ease-in-out color .15s;
 }
 
 .site-header a:hover {
-    color: #fff;
+    color: #b7b7b7;
     text-decoration: none;
+}
+
+.navbar-brand .logo {
+    max-width: 150px;
 }
