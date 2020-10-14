@@ -7,6 +7,7 @@ export const classeActions = {
     getAll,
     getById,
     postClasse,
+    putClasse,
     delete: _delete
 };
 
@@ -27,14 +28,17 @@ function getAll() {
 }
 
 function getById(id) {
-    return dispatch => {
-        dispatch(request());
 
-        classeService.getById(id)
-            .then(
-                category => dispatch(success(category)),
-                error => dispatch(failure(error.toString()))
-            );
+    return dispatch => {
+        return new Promise((resolve, reject) => {
+            dispatch(request());
+
+            classeService.getById(id)
+                .then(
+                    classe => resolve(dispatch(success(classe))),
+                    error => reject(dispatch(failure(error.toString())))
+                );
+        });
     };
 
     function request() { return { type: classeConstants.GETBYID_REQUEST } }
@@ -59,9 +63,31 @@ function postClasse(classe) {
             );
     };
 
-    function request(classe) { return { type: classeConstants.POST_CATEGORY_REQUEST, classe } }
-    function success(classe) { return { type: classeConstants.POST_CATEGORY_SUCCESS, classe } }
-    function failure(error) { return { type: classeConstants.POST_CATEGORY_FAILURE, error } }
+    function request(classe) { return { type: classeConstants.POST_CLASSE_REQUEST, classe } }
+    function success(classe) { return { type: classeConstants.POST_CLASSE_SUCCESS, classe } }
+    function failure(error) { return { type: classeConstants.POST_CLASSE_FAILURE, error } }
+}
+
+function putClasse(classe, id) {
+    return dispatch => {
+        dispatch(request(classe));
+
+        classeService.putClasse(classe, id)
+            .then(
+                category => {
+                    dispatch(success(category));
+                    dispatch(alertActions.success('Classe mise à jour avec succès'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(classe) { return { type: classeConstants.PUT_CLASSE_REQUEST, classe } }
+    function success(classe) { return { type: classeConstants.PUT_CLASSE_SUCCESS, classe } }
+    function failure(error) { return { type: classeConstants.PUT_CLASSE_FAILURE, error } }
 }
 
 function _delete(id) {

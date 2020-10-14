@@ -6,6 +6,7 @@ export const classeService = {
     getById,
     getByName,
     postClasse,
+    putClasse,
     update,
     delete: _delete
 };
@@ -34,7 +35,7 @@ function getByName(name) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}//byName//${name}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}//byName/${name}`, requestOptions).then(handleResponse);
 }
 
 function postClasse(classe) {
@@ -45,6 +46,16 @@ function postClasse(classe) {
     };
 
     return fetch(`${config.apiUrl}/classes`, requestOptions).then(handleResponse);
+}
+
+function putClasse(classe, id) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        body: JSON.stringify(classe)
+    };
+
+    return fetch(`${config.apiUrl}/classes/${id}`, requestOptions).then(handleResponse);
 }
 
 function update(classe) {

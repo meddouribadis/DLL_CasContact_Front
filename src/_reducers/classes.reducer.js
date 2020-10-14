@@ -28,13 +28,26 @@ export function classes(state = {}, action) {
                 error: action.error
             };
 
-        case classeConstants.POST_CATEGORY_REQUEST:
+        case classeConstants.POST_CLASSE_REQUEST:
             return {
-                categoryCreation: true
+                classeCreation: true
             };
-        case classeConstants.POST_CATEGORY_SUCCESS:
+        case classeConstants.POST_CLASSE_SUCCESS:
             return {};
-        case classeConstants.POST_CATEGORY_FAILURE:
+        case classeConstants.POST_CLASSE_FAILURE:
+            return {
+                error: action.error
+            };
+
+        case classeConstants.PUT_CLASSE_REQUEST:
+            return {
+                classeUpdate: true
+            };
+        case classeConstants.PUT_CLASSE_SUCCESS:
+            return {
+                currentCourse: action.classe
+            };
+        case classeConstants.PUT_CLASSE_FAILURE:
             return {
                 error: action.error
             };

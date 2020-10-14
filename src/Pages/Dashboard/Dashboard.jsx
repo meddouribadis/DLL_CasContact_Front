@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 
 //Routes
-import {CreateClasse, ManageClasses} from "./ClasseDashboard";
+import {CreateClasse, ManageClasses, EditClasse} from "./ClasseDashboard";
 
 // Routeur Dashboard
 function DashboardRouter() {
@@ -14,6 +14,7 @@ function DashboardRouter() {
             <Route exact path={path} component={DashboardHome} />
             <Route exact path={`${path}/classe/create`} component={CreateClasse} />
             <Route exact path={`${path}/classe/manage`} component={ManageClasses} />
+            <Route path={`${path}/classe/edit/:classeId`} component={EditClasse} />
         </Switch>
     );
 }

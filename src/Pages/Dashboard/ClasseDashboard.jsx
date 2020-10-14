@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {classeActions, userActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 function CreateClasse() {
 
@@ -24,7 +24,7 @@ function ManageClasses() {
 
     return (
         <div className="row">
-            <div className="col">
+            <div className="col-12">
                 <h1>Vos classes :</h1>
                 <hr/>
                 {classes.loading && <em>Chargement des classes...</em>}
@@ -48,7 +48,7 @@ function ManageClasses() {
                             <td>{classe.nom}</td>
                             <td>{classe.code}</td>
                             <td>{classe.code}</td>
-                            <td><Link to={{pathname: `/dashboard/course/edit/${classe.id}`}} className="btn btn-primary">Modifier</Link></td>
+                            <td><Link to={{pathname: `/dashboard/classe/edit/${classe.id}`}} className="btn btn-primary">Modifier</Link></td>
                         </tr>
                     )}
                     </tbody>
@@ -59,5 +59,82 @@ function ManageClasses() {
     );
 }
 
+function EditClasse() {
 
-export {CreateClasse,ManageClasses};
+    const user = useSelector(state => state.authentication.user);
+    const classes = useSelector(state => state.classes);
+    const dispatch = useDispatch();
+    let { classeId } = useParams();
+
+    const [classe, setClasse] = useState(null);
+    const [submitted, setSubmitted] = useState(false);
+
+    useEffect(() => {
+        dispatch(classeActions.getById(classeId)).then((data, err) => {
+            setClasse(data.classe);
+        });
+    }, []);
+
+    function handleChange(e) {
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        setClasse(classe => ({ ...classe, [name]: value }));
+        console.log(classe);
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        setSubmitted(true);
+        if (classe.nom && classe.code) {
+            dispatch(classeActions.putClasse(classe, classeId));
+        }
+    }
+
+    return (
+        <div className="row">
+            <div className="col">
+                {classes.loading && <em>Chargement...</em>}
+                {classes.error && <span className="text-danger">ERROR: {classes.error}</span>}
+                {classe !== null &&
+                <form name="form" onSubmit={handleSubmit}>
+                    <h1>Modifier le cours</h1>
+                    <hr/>
+
+                    <div className="form-group">
+                        <label>Nom de la classe</label>
+                        <input type="text" name="nom" value={classe.nom} onChange={handleChange}
+                               className={'form-control' + (submitted && !classe.nom ? ' is-invalid' : '')}
+                               placeholder="Nom de la classe"/>
+                        {submitted && !classe.nom &&
+                        <div className="invalid-feedback">Le nom de classe est requis</div>
+                        }
+                    </div>
+
+                    <div className="form-group">
+                        <label>Code de la classe</label>
+                        <input type="text" name="code" value={classe.code} onChange={handleChange}
+                               className={'form-control' + (submitted && !classe.code ? ' is-invalid' : '')}
+                               placeholder="Nom de la classe"/>
+                        {submitted && !classe.code &&
+                        <div className="invalid-feedback">Le code de classe est requis</div>
+                        }
+                    </div>
+
+                    <br/>
+                    <div className="form-group">
+                        <button className="btn btn-primary">
+                            Valider
+                        </button>
+                        <Link to="/dashboard/classe/manage" className="btn btn-link">Annuler</Link>
+                    </div>
+                </form>
+                }
+            </div>
+        </div>
+    );
+}
+
+
+export {CreateClasse,ManageClasses, EditClasse};
