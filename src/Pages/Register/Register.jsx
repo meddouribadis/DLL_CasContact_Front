@@ -9,6 +9,7 @@ function RegisterPage() {
         firstName: '',
         lastName: '',
         username: '',
+        numEtud: '',
         email: '',
         password: ''
     });
@@ -30,7 +31,7 @@ function RegisterPage() {
         e.preventDefault();
 
         setSubmitted(true);
-        if (user.firstName && user.lastName && user.username && user.password) {
+        if (user.firstName && user.lastName && user.username && user.password && user.numEtud) {
             dispatch(userActions.register(user));
         }
     }
@@ -66,6 +67,13 @@ function RegisterPage() {
                     <small id="emailHelp" className="form-text text-muted">Nous ne partagerons jamais votre mail avec des tiers.</small>
                     {submitted && !user.email &&
                     <div className="invalid-feedback">Email is required</div>
+                    }
+                </div>
+                <div className="form-group">
+                    <label>Numéro étudiant</label>
+                    <input type="text" name="numEtud" value={user.numEtud} onChange={handleChange} className={'form-control' + (submitted && !user.numEtud ? ' is-invalid' : '')} placeholder="Numéro étudiant" />
+                    {submitted && !user.numEtud &&
+                    <div className="invalid-feedback">Numéro étudiant</div>
                     }
                 </div>
                 <div className="form-group">
