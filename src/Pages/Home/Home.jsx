@@ -21,7 +21,12 @@ function HomePage() {
 
     return (
         <div>
-            {user.role === 'TEACHER' &&
+            {user === null &&
+            <div className="row">
+                <p>Wesh</p>
+            </div>
+            }
+            {user && user.role === 'TEACHER' &&
             <div className="row">
                 <div className="col-12">
                     <h1>Accueil</h1>
@@ -72,7 +77,7 @@ function HomePage() {
                 </div>
             </div>
             }
-            {user.role === 'STUDENT' &&
+            {user && user.role === 'STUDENT' &&
             <div className="row">
                 <div className="col-12">
                     <h1>Accueil</h1>

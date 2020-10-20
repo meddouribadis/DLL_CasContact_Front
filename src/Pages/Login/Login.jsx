@@ -40,25 +40,25 @@ function LoginPage() {
             <h2>Se connecter</h2>
             <form name="form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Username</label>
+                    <label>Nom d'utilisateur</label>
                     <input type="text" name="username" value={username} onChange={handleChange} className={'form-control' + (submitted && !username ? ' is-invalid' : '')} />
                     {submitted && !username &&
                     <div className="invalid-feedback">Username is required</div>
                     }
                 </div>
                 <div className="form-group">
-                    <label>Password</label>
+                    <label>Mot de passe</label>
                     <input type="password" name="password" value={password} onChange={handleChange} className={'form-control' + (submitted && !password ? ' is-invalid' : '')} />
                     {submitted && !password &&
-                    <div className="invalid-feedback">Password is required</div>
+                    <div className="invalid-feedback">Le mot de passe est requis</div>
                     }
                 </div>
                 <div className="form-group">
                     <button className="btn btn-primary">
                         {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                        Login
+                        Se connecter
                     </button>
-                    <Link to="/register" className="btn btn-link">Register</Link>
+                    <Link to="/register" className="btn btn-link">S'inscrire</Link>
                 </div>
             </form>
         </div>
