@@ -12,8 +12,8 @@ function DashboardRouter() {
     return (
         <Switch>
             <Route exact path={path} component={DashboardHome} />
-            <Route exact path={`${path}/classe/create`} component={CreateClasse} />
             <Route exact path={`${path}/classe/manage`} component={ManageClasses} />
+            <Route path={`${path}/classe/create`} component={CreateClasse} />
             <Route path={`${path}/classe/edit/:classeId`} component={EditClasse} />
         </Switch>
     );

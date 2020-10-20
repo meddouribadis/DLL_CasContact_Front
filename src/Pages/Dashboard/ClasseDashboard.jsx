@@ -5,9 +5,67 @@ import {Link, useParams} from "react-router-dom";
 
 function CreateClasse() {
 
+    const user = useSelector(state => state.authentication.user);
+    const dispatch = useDispatch();
+
+    const [classe, setClasse] = useState({
+        nom: '',
+        code: ''
+    });
+    const [submitted, setSubmitted] = useState(false);
+
+    function handleChange(e) {
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        setClasse(classe => ({ ...classe, [name]: value }));
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        setSubmitted(true);
+        if (classe.nom && classe.code) {
+            dispatch(classeActions.postClasse(classe));
+        }
+    }
+
     return (
         <div className="row">
-            <p>CreateClassePage</p>
+            <div className="col">
+                <form name="form" onSubmit={handleSubmit}>
+                    <h1>Créer une classe</h1>
+                    <hr/>
+
+                    <div className="form-group">
+                        <label>Nom de la classe</label>
+                        <input type="text" name="nom" value={classe.nom} onChange={handleChange}
+                               className={'form-control' + (submitted && !classe.nom ? ' is-invalid' : '')}
+                               placeholder="Nom de la classe"/>
+                        {submitted && !classe.nom &&
+                        <div className="invalid-feedback">Le nom de classe est requis</div>
+                        }
+                    </div>
+
+                    <div className="form-group">
+                        <label>Code de la classe</label>
+                        <input type="text" name="code" value={classe.code} onChange={handleChange}
+                               className={'form-control' + (submitted && !classe.code ? ' is-invalid' : '')}
+                               placeholder="Nom de la classe"/>
+                        {submitted && !classe.code &&
+                        <div className="invalid-feedback">Le code de classe est requis</div>
+                        }
+                    </div>
+
+                    <br/>
+                    <div className="form-group">
+                        <button className="btn btn-primary">
+                            Valider
+                        </button>
+                        <Link to="/dashboard/classe/manage" className="btn btn-link">Annuler</Link>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
@@ -80,7 +138,6 @@ function EditClasse() {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         setClasse(classe => ({ ...classe, [name]: value }));
-        console.log(classe);
     }
 
     function handleSubmit(e) {
