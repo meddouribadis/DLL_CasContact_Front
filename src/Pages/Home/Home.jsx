@@ -82,9 +82,17 @@ function HomePage() {
                 <div className="col-12">
                     <h1>Accueil</h1>
                     <hr/>
-
+                    <p>Bonjour étudiant {user.firstName} {user.lastName} !</p>
                     <h2>Vos actions :</h2>
-                    <p>Bonjour étudiant</p>
+                </div>
+                <div className="col-4">
+                    <a className="btn btn-danger" href="/signalement/" role="button">Je suis infecté</a>
+                </div>
+                <div className="col-4">
+                    <a className="btn btn-warning" href="/signalement/cas-contact" role="button">Je suis cas contact</a>
+                </div>
+                <div className="col-4">
+                    <a className="btn btn-primary" href="/dashboard/classe/manage" role="button">Gérer mes classes</a>
                 </div>
             </div>
             }
