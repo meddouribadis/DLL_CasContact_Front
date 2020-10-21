@@ -11,6 +11,19 @@
     transition: ease-in-out color .15s;
 }
 
+.site-header a {
+    color: white;
+    transition: ease-in-out color .15s;
+}
+
+.site-header .dropdown-item {
+    color: #212529;
+}
+
+.site-header .dropdown-item:hover {
+    color: #2d3339;
+}
+
 .site-header a:hover {
     color: #b7b7b7;
     text-decoration: none;

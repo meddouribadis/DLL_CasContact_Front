@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import {SignalementPage} from "./SignalementPage";
 
 function SignalementRouter() {

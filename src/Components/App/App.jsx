@@ -18,6 +18,7 @@ import { Footer } from "../Footer";
 import "./App.css";
 import {DashboardRouter} from "../../Pages/Dashboard";
 import {SignalementRouter} from "../../Pages/Signalement";
+import {ProfileRouter} from "../../Pages/Profile";
 
 
 function App() {
@@ -43,10 +44,12 @@ function App() {
           <Router history={history}>
             <Switch>
               <PrivateRoute exact path="/" component={HomePage} />
+              <PrivateRoute path="/signalement" component={SignalementRouter} />
+              <PrivateRoute path="/dashboard" component={DashboardRouter} />
+              <PrivateRoute path="/profile" component={ProfileRouter} />
+
               <Route path="/login" component={LoginPage} />
               <Route path="/register" component={RegisterPage} />
-              <Route path="/dashboard" component={DashboardRouter} />
-              <Route path="/signalement" component={SignalementRouter} />
               <Redirect from="*" to="/" />
             </Switch>
           </Router>
