@@ -3,27 +3,23 @@ import { Router, Route, Switch, Redirect, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { history } from "../../_helpers";
-import { alertActions, userActions } from "../../_actions";
+import { alertActions, signalementActions } from "../../_actions";
 import { PrivateRoute } from "../../_components";
 
 function HomePage() {
-    const users = useSelector(state => state.users);
+    const signalements = useSelector(state => state.signalements);
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(userActions.getAll());
+        dispatch(signalementActions.getAllActive());
     }, []);
-
-    function handleDeleteUser(id) {
-        dispatch(userActions.delete(id));
-    }
 
     return (
         <div>
             {user === null &&
             <div className="row">
-                <p>Wesh</p>
+                <p>Error</p>
             </div>
             }
             {user && user.role === 'TEACHER' &&
@@ -34,31 +30,20 @@ function HomePage() {
 
                     <h2>Vos cas contacts :</h2>
                     <br/>
+
                     <div className="list-group">
-                        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
-                            <div className="d-flex w-100 justify-content-between">
-                                <h5 className="mb-1">Badis Meddouri</h5>
-                                <small>M2 MIAGE APP</small>
-                            </div>
-                            <p className="mb-1">Du 13/10 jusqu'au 20/10</p>
-                            <small>Donec id elit non mi porta.</small>
-                        </a>
-                        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
-                            <div className="d-flex w-100 justify-content-between">
-                                <h5 className="mb-1">Anis Kassy</h5>
-                                <small>M2 MIAGE APP</small>
-                            </div>
-                            <p className="mb-1">Du 13/10 jusqu'au 20/10</p>
-                            <small>Donec id elit non mi porta.</small>
-                        </a>
-                        <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
-                            <div className="d-flex w-100 justify-content-between">
-                                <h5 className="mb-1">Jayson Bouceaud</h5>
-                                <small>M2 MIAGE APP</small>
-                            </div>
-                            <p className="mb-1">Du 13/10 jusqu'au 20/10</p>
-                            <small>Donec id elit non mi porta.</small>
-                        </a>
+                        {signalements.loading && <em>Chargement...</em>}
+                        {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
+                        {signalements.items && signalements.items.map((signalement, index) => [
+                                <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div className="d-flex w-100 justify-content-between">
+                                        <h5 className="mb-1">{signalement.User.firstName} {signalement.User.lastName}</h5>
+                                        <small>{signalement.User.classe.nom}</small>
+                                    </div>
+                                    <p className="mb-1">Du {new Date(signalement.dateDebut).toLocaleDateString()} jusqu'au {new Date(signalement.dateFin).toLocaleDateString()}</p>
+                                    <small>{signalement.User.numEtud}</small>
+                                </a>
+                            ])}
                     </div>
                 </div>
                 <div className="col-12">

@@ -125,7 +125,7 @@ function MesSignalements(){
                             <th scope="row">{signalement.id}</th>
                             <td>{new Date(signalement.dateDebut).toLocaleDateString()}</td>
                             <td>{new Date(signalement.dateFin).toLocaleDateString()}</td>
-                            <td>{signalement.isCasContact ? 'Cas Contact' : 'Infection'}</td>
+                            <td>{signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> : <p className={"btn btn-danger"}>Infection</p>}</td>
                             <td><Link to={{pathname: `/dashboard/classe/edit/${signalement.id}`}} className="btn btn-primary">Voir</Link></td>
                         </tr>
                     )}
