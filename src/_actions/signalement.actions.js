@@ -52,8 +52,8 @@ function postSignalement(signalement) {
 
         signalementService.postSignalement(signalement)
             .then(
-                category => {
-                    dispatch(success(category));
+                signalement => {
+                    dispatch(success(signalement));
                     dispatch(alertActions.success('Signalement crée avec succès'));
                 },
                 error => {

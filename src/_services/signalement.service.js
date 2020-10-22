@@ -29,6 +29,8 @@ function getById(id) {
 }
 
 function postSignalement(signalement) {
+
+    console.log(signalement);
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },

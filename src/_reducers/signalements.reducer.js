@@ -1,6 +1,6 @@
 import { signalementConstants } from '../_constants';
 
-export function classes(state = {}, action) {
+export function signalements(state = {}, action) {
     switch (action.type) {
         case signalementConstants.GETALL_REQUEST:
             return {
@@ -8,7 +8,7 @@ export function classes(state = {}, action) {
             };
         case signalementConstants.GETALL_SUCCESS:
             return {
-                items: action.classes
+                items: action.signalements
             };
         case signalementConstants.GETALL_FAILURE:
             return {
@@ -21,7 +21,7 @@ export function classes(state = {}, action) {
             };
         case signalementConstants.GETBYID_SUCCESS:
             return {
-                currentCourse: action.classe
+                currentCourse: action.signalement
             };
         case signalementConstants.GETBYID_FAILURE:
             return {
@@ -30,7 +30,7 @@ export function classes(state = {}, action) {
 
         case signalementConstants.POST_SIGNALEMENT_REQUEST:
             return {
-                classeCreation: true
+                signalementCreation: true
             };
         case signalementConstants.POST_SIGNALEMENT_SUCCESS:
             return {};
@@ -41,11 +41,11 @@ export function classes(state = {}, action) {
 
         case signalementConstants.PUT_SIGNALEMENT_REQUEST:
             return {
-                classeUpdate: true
+                signalementUpdate: true
             };
         case signalementConstants.PUT_SIGNALEMENT_SUCCESS:
             return {
-                currentCourse: action.classe
+                currentSignalement: action.signalement
             };
         case signalementConstants.PUT_SIGNALEMENT_FAILURE:
             return {
@@ -56,30 +56,30 @@ export function classes(state = {}, action) {
             // add 'deleting:true' property to user being deleted
             return {
                 ...state,
-                items: state.items.map(classe =>
-                    classe.id === action.id
-                        ? { ...classe, deleting: true }
-                        : classe
+                items: state.items.map(signalement =>
+                    signalement.id === signalement.id
+                        ? { ...signalement, deleting: true }
+                        : signalement
                 )
             };
         case signalementConstants.DELETE_SUCCESS:
             // remove deleted user from state
             return {
-                items: state.items.filter(classe => classe.id !== classe.id)
+                items: state.items.filter(signalement => signalement.id !== signalement.id)
             };
         case signalementConstants.DELETE_FAILURE:
             // remove 'deleting:true' property and add 'deleteError:[error]' property to user 
             return {
                 ...state,
-                items: state.items.map(classe => {
-                    if (classe.id === action.id) {
+                items: state.items.map(signalement => {
+                    if (signalement.id === signalement.id) {
                         // make copy of user without 'deleting:true' property
                         const { deleting, ...userCopy } = classe;
                         // return copy of user with 'deleteError:[error]' property
                         return { ...userCopy, deleteError: action.error };
                     }
 
-                    return classe;
+                    return signalement;
                 })
             };
         default:
