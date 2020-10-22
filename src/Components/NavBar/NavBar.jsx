@@ -35,7 +35,7 @@ function NavBar() {
           <a className="navbar-brand" href="/">
             <img src={logo} alt="" className={"img-fluid logo"}/>
           </a>
-          <a className="py-2 d-none d-md-inline-block" href="#">Accueil</a>
+          <a className="py-2 d-none d-md-inline-block" href="/">Accueil</a>
           <a className="py-2 d-none d-md-inline-block" href="#">Product</a>
           <a className="py-2 d-none d-md-inline-block" href="#">Features</a>
           <a className="py-2 d-none d-md-inline-block" href="#">Enterprise</a>

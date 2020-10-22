@@ -40,15 +40,9 @@ function MonProfil() {
                                 <hr/>
                                 <div className="profile-work">
                                     <h6>Liens utiles</h6>
-                                    <a href="">Website Link</a><br/>
-                                    <a href="">Bootsnipp Profile</a><br/>
-                                    <a href="">Bootply Profile</a><br/>
-                                    <h6>Vos rappels</h6>
-                                    <a href="">Web Designer</a><br/>
-                                    <a href="">Web Developer</a><br/>
-                                    <a href="">WordPress</a><br/>
-                                    <a href="">WooCommerce</a><br/>
-                                    <a href="">PHP, .Net</a><br/>
+                                    <a href="">Emploi du temps</a><br/>
+                                    <a href="">COVID Gouv</a><br/>
+                                    <a href="">UEVE</a><br/>
                                 </div>
                             </div>
                         </div>
@@ -86,18 +80,18 @@ function MonProfil() {
                                          aria-labelledby="home-tab">
                                         <div className="row">
                                             <div className="col-md-6">
-                                                <label>User Id</label>
+                                                <label>id</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>Kshiti123</p>
+                                                <p>{user.id}</p>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="col-md-6">
-                                                <label>Name</label>
+                                                <label>Nom</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>Kshiti Ghelani</p>
+                                                <p>{user.firstName} {user.lastName}</p>
                                             </div>
                                         </div>
                                         <div className="row">
@@ -105,23 +99,23 @@ function MonProfil() {
                                                 <label>Email</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>kshitighelani@gmail.com</p>
+                                                <p>{user.email}</p>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="col-md-6">
-                                                <label>Phone</label>
+                                                <label>Numéro étudiant</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>123 456 7890</p>
+                                                <p>{user.numEtud}</p>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="col-md-6">
-                                                <label>Profession</label>
+                                                <label>Role</label>
                                             </div>
                                             <div className="col-md-6">
-                                                <p>Web Developer and Designer</p>
+                                                <p>{user.role}</p>
                                             </div>
                                         </div>
                                     </div>
