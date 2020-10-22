@@ -3,7 +3,9 @@ import { authHeader } from '../_helpers';
 
 export const signalementService = {
     getAll,
+    getAllActive,
     getById,
+    getByUserId,
     postSignalement,
     putSignalement,
     update,
@@ -19,6 +21,15 @@ function getAll() {
     return fetch(`${config.apiUrl}/signalements`, requestOptions).then(handleResponse);
 }
 
+function getAllActive() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/signalements/allActive`, requestOptions).then(handleResponse);
+}
+
 function getById(id) {
     const requestOptions = {
         method: 'GET',
@@ -28,9 +39,16 @@ function getById(id) {
     return fetch(`${config.apiUrl}/signalements/${id}`, requestOptions).then(handleResponse);
 }
 
-function postSignalement(signalement) {
+function getByUserId(id) {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
 
-    console.log(signalement);
+    return fetch(`${config.apiUrl}/signalements/byUser/${id}`, requestOptions).then(handleResponse);
+}
+
+function postSignalement(signalement) {
     const requestOptions = {
         method: 'POST',
         headers: { ...authHeader(), 'Content-Type': 'application/json' },

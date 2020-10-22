@@ -15,6 +15,32 @@ export function signalements(state = {}, action) {
                 error: action.error
             };
 
+        case signalementConstants.GETALLACTIVE_REQUEST:
+            return {
+                loading: true
+            };
+        case signalementConstants.GETALLACTIVE_SUCCESS:
+            return {
+                items: action.signalements
+            };
+        case signalementConstants.GETALLACTIVE_FAILURE:
+            return {
+                error: action.error
+            };
+
+        case signalementConstants.GETBYUSERID_REQUEST:
+            return {
+                loading: true
+            };
+        case signalementConstants.GETBYUSERID_SUCCESS:
+            return {
+                items: action.signalements
+            };
+        case signalementConstants.GETBYUSERID_FAILURE:
+            return {
+                error: action.error
+            };
+
         case signalementConstants.GETBYID_REQUEST:
             return {
                 loading: true

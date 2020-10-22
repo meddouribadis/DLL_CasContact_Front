@@ -5,7 +5,9 @@ import { history } from '../_helpers';
 
 export const signalementActions = {
     getAll,
+    getAllActive,
     getById,
+    getByUserId,
     postSignalement,
     putSignalement,
     delete: _delete
@@ -17,7 +19,7 @@ function getAll() {
 
         signalementService.getAll()
             .then(
-                categories => dispatch(success(categories)),
+                signalements => dispatch(success(signalements)),
                 error => dispatch(failure(error.toString()))
             );
     };
@@ -25,6 +27,22 @@ function getAll() {
     function request() { return { type: signalementConstants.GETALL_REQUEST } }
     function success(signalements) { return { type: signalementConstants.GETALL_SUCCESS, signalements } }
     function failure(error) { return { type: signalementConstants.GETALL_FAILURE, error } }
+}
+
+function getAllActive() {
+    return dispatch => {
+        dispatch(request());
+
+        signalementService.getAllActive()
+            .then(
+                signalements => dispatch(success(signalements)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request() { return { type: signalementConstants.GETALLACTIVE_REQUEST } }
+    function success(signalements) { return { type: signalementConstants.GETALLACTIVE_SUCCESS, signalements } }
+    function failure(error) { return { type: signalementConstants.GETALLACTIVE_FAILURE, error } }
 }
 
 function getById(id) {
@@ -44,6 +62,25 @@ function getById(id) {
     function request() { return { type: signalementConstants.GETBYID_REQUEST } }
     function success(signalement) { return { type: signalementConstants.GETBYID_SUCCESS, signalement } }
     function failure(error) { return { type: signalementConstants.GETBYID_FAILURE, error } }
+}
+
+function getByUserId(id) {
+
+    return dispatch => {
+        return new Promise((resolve, reject) => {
+            dispatch(request());
+
+            signalementService.getByUserId(id)
+                .then(
+                    signalements => resolve(dispatch(success(signalements))),
+                    error => reject(dispatch(failure(error.toString())))
+                );
+        });
+    };
+
+    function request() { return { type: signalementConstants.GETBYUSERID_REQUEST } }
+    function success(signalements) { return { type: signalementConstants.GETBYUSERID_SUCCESS, signalements } }
+    function failure(error) { return { type: signalementConstants.GETBYUSERID_FAILURE, error } }
 }
 
 function postSignalement(signalement) {
