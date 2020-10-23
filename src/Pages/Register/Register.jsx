@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { userActions } from '../../_actions';
+import { userActions, classeActions } from '../../_actions';
 
 function RegisterPage() {
     const [user, setUser] = useState({
@@ -11,8 +11,10 @@ function RegisterPage() {
         username: '',
         numEtud: '',
         email: '',
-        password: ''
+        password: '',
+        id_classe: ''
     });
+    const classes = useSelector(state => state.classes);
     const [submitted, setSubmitted] = useState(false);
     const registering = useSelector(state => state.registration.registering);
     const dispatch = useDispatch();
@@ -20,11 +22,17 @@ function RegisterPage() {
     // reset login status
     useEffect(() => {
         dispatch(userActions.logout());
+        dispatch(classeActions.getAllWithoutUsers());
     }, []);
 
     function handleChange(e) {
         const { name, value } = e.target;
         setUser(user => ({ ...user, [name]: value }));
+    }
+
+    function handleChangeSelect(e) {
+        const { name, value } = e.target;
+        user.id_classe = value;
     }
 
     function handleSubmit(e) {
@@ -68,6 +76,15 @@ function RegisterPage() {
                     {submitted && !user.email &&
                     <div className="invalid-feedback">Email is required</div>
                     }
+                </div>
+                <div className="form-group">
+                    <label>Votre classe</label>
+                    <select className="form-control" id="selectClasseId" name="id_classe" onChange={handleChangeSelect}>
+                        <option value="none" selected disabled hidden></option>
+                        {classes.items && classes.items.map((classe, index) =>
+                            <option key={classe.code} value={classe.id+''}>{classe.code}</option>
+                        )}
+                    </select>
                 </div>
                 <div className="form-group">
                     <label>Numéro étudiant</label>

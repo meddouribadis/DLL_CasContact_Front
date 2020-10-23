@@ -3,6 +3,7 @@ import { authHeader } from '../_helpers';
 
 export const classeService = {
     getAll,
+    getAllWithoutUsers,
     getById,
     getByName,
     postClasse,
@@ -18,6 +19,15 @@ function getAll() {
     };
 
     return fetch(`${config.apiUrl}/classes`, requestOptions).then(handleResponse);
+}
+
+function getAllWithoutUsers() {
+    const requestOptions = {
+        method: 'GET',
+        headers: authHeader()
+    };
+
+    return fetch(`${config.apiUrl}/classes/list`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {

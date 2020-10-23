@@ -101,17 +101,21 @@ function ManageClasses() {
 
                     <tbody>
                     {classes.items.map((classe, index) =>
-                        <tr>
+                        <tr key={classe.id}>
                             <th scope="row">{classe.id}</th>
                             <td>{classe.nom}</td>
                             <td>{classe.code}</td>
-                            <td>{classe.code}</td>
+                            <td>{classe.students.length}</td>
                             <td><Link to={{pathname: `/dashboard/classe/edit/${classe.id}`}} className="btn btn-primary">Modifier</Link></td>
                         </tr>
                     )}
                     </tbody>
                 </table>
                 }
+            </div>
+
+            <div className="col-12">
+                <Link to={{pathname: `/dashboard/classe/create`}} className="btn btn-success">Ajouter une classe</Link>
             </div>
         </div>
     );

@@ -5,6 +5,7 @@ import { history } from '../_helpers';
 
 export const classeActions = {
     getAll,
+    getAllWithoutUsers,
     getById,
     postClasse,
     putClasse,
@@ -18,6 +19,25 @@ function getAll() {
         classeService.getAll()
             .then(
                 categories => dispatch(success(categories)),
+                error => dispatch(failure(error.toString()))
+            );
+    };
+
+    function request() { return { type: classeConstants.GETALL_REQUEST } }
+    function success(classes) { return { type: classeConstants.GETALL_SUCCESS, classes } }
+    function failure(error) { return { type: classeConstants.GETALL_FAILURE, error } }
+}
+
+function getAllWithoutUsers() {
+    return dispatch => {
+        dispatch(request());
+
+        classeService.getAllWithoutUsers()
+            .then(
+                classes => {
+                    console.log(classes);
+                    dispatch(success(classes));
+                },
                 error => dispatch(failure(error.toString()))
             );
     };
