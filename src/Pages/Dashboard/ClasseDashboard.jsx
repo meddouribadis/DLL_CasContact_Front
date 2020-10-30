@@ -192,7 +192,7 @@ function EditClasse() {
                         </div>
                     </form>
                 }
-                {classe !== null &&
+                {classe !== null && classe.students.length > 0 &&
                     <div className="list_students">
                         <h2>Liste des élèves de cette classe</h2>
                         <table className="table">

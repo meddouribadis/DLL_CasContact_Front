@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { history } from "../../_helpers";
 import { alertActions } from "../../_actions";
-import { PrivateRoute } from "../../_components";
+import { PrivateRoute, SecuredRoute } from "../../_components";
 
 // Pages
 import { HomePage } from "../../Pages/Home";
@@ -45,7 +45,7 @@ function App() {
             <Switch>
               <PrivateRoute exact path="/" component={HomePage} />
               <PrivateRoute path="/signalement" component={SignalementRouter} />
-              <PrivateRoute path="/dashboard" component={DashboardRouter} />
+              <SecuredRoute path="/dashboard" component={DashboardRouter} />
               <PrivateRoute path="/profile" component={ProfileRouter} />
 
               <Route path="/login" component={LoginPage} />
