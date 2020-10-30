@@ -29,7 +29,7 @@ function MonProfil() {
                                 <div className="profile-img">
                                     <img
                                         className={"img-fluid"}
-                                        src="https://tabib.ae/uploads/documentImages/1601449660060668366-202-026231.jpg"
+                                        src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                                         alt=""/>
                                 </div>
                             </div>

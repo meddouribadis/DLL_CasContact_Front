@@ -19,7 +19,7 @@ function NavBar() {
                     </a>
 
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuUser">
-                        <a className="dropdown-item" href="#">Mon profil</a>
+                        <a className="dropdown-item" href="/profile">Mon profil</a>
                         <a className="dropdown-item" href="#">Contact</a>
                         <a className="dropdown-item" href="/login">Se déconnecter</a>
                     </div>

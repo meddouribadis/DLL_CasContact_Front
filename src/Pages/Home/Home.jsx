@@ -34,6 +34,7 @@ function HomePage() {
                     <div className="list-group">
                         {signalements.loading && <em>Chargement...</em>}
                         {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
+                        {signalements.items && signalements.items.length == 0 && <p>Bonne nouvelle, aucun cas contact !</p>}
                         {signalements.items && signalements.items.map((signalement, index) => [
                                 <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
                                     <div className="d-flex w-100 justify-content-between">
@@ -71,7 +72,7 @@ function HomePage() {
                     <h2>Vos actions :</h2>
                 </div>
                 <div className="col-4">
-                    <a className="btn btn-danger" href="/signalement/" role="button">Je suis infecté</a>
+                    <a className="btn btn-danger" href="/signalement/infection" role="button">Je suis infecté</a>
                 </div>
                 <div className="col-4">
                     <a className="btn btn-warning" href="/signalement/cas-contact" role="button">Je suis cas contact</a>

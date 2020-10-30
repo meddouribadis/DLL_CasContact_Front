@@ -16,6 +16,7 @@ function RegisterPage() {
     });
     const classes = useSelector(state => state.classes);
     const [submitted, setSubmitted] = useState(false);
+    const [mailValidate, setMailValidate] = useState(false);
     const registering = useSelector(state => state.registration.registering);
     const dispatch = useDispatch();
 
@@ -28,6 +29,7 @@ function RegisterPage() {
     function handleChange(e) {
         const { name, value } = e.target;
         setUser(user => ({ ...user, [name]: value }));
+        isValidEmail(user.email);
     }
 
     function handleChangeSelect(e) {
@@ -35,11 +37,22 @@ function RegisterPage() {
         user.id_classe = value;
     }
 
+    function isValidEmail(email) {
+        const regex = new RegExp("^[a-zA-Z0-9._%+-]+@etud\\.univ-evry+\\.fr$");
+        if(regex.test(email)){
+            console.log('True5 mail');
+            setMailValidate(true);
+        }
+        else {
+            console.log('False mail');
+            setMailValidate(false);
+        }
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
-
         setSubmitted(true);
-        if (user.firstName && user.lastName && user.username && user.password && user.numEtud) {
+        if (user.firstName && user.lastName && user.username && user.password && user.numEtud && user.email && user.id_classe && mailValidate) {
             dispatch(userActions.register(user));
         }
     }
@@ -66,25 +79,31 @@ function RegisterPage() {
                     <label>Nom d'utilisateur</label>
                     <input type="text" name="username" value={user.username} onChange={handleChange} className={'form-control' + (submitted && !user.username ? ' is-invalid' : '')} placeholder="Nom d'utilisateur" />
                     {submitted && !user.username &&
-                    <div className="invalid-feedback">Username is required</div>
+                    <div className="invalid-feedback">Le champ utilisateur doit être renseigné</div>
                     }
                 </div>
                 <div className="form-group">
                     <label>eMail</label>
-                    <input type="text" name="email" value={user.email} onChange={handleChange} className={'form-control' + (submitted && !user.email ? ' is-invalid' : '')} aria-describedby="emailHelp" placeholder="Votre email" />
+                    <input type="text" name="email" value={user.email} onChange={handleChange} className={'form-control' + (submitted && (!user.email || !mailValidate) ? ' is-invalid' : '')} aria-describedby="emailHelp" placeholder="Votre email" />
                     <small id="emailHelp" className="form-text text-muted">Nous ne partagerons jamais votre mail avec des tiers.</small>
                     {submitted && !user.email &&
-                    <div className="invalid-feedback">Email is required</div>
+                    <div className="invalid-feedback">Le champ Email doit être renseigné</div>
+                    }
+                    {submitted && !mailValidate &&
+                    <div className="invalid-feedback">Votre Email doit être un mail universitaire</div>
                     }
                 </div>
                 <div className="form-group">
                     <label>Votre classe</label>
-                    <select className="form-control" id="selectClasseId" name="id_classe" onChange={handleChangeSelect}>
-                        <option value="none" selected disabled hidden></option>
+                    <select className={'form-control' + (submitted && !user.id_classe ? ' is-invalid' : '')} id="selectClasseId" name="id_classe" defaultValue={"none"} onChange={handleChangeSelect}>
+                        <option value="none" disabled hidden></option>
                         {classes.items && classes.items.map((classe, index) =>
                             <option key={classe.code} value={classe.id+''}>{classe.code}</option>
                         )}
                     </select>
+                    {submitted && !user.id_classe &&
+                    <div className="invalid-feedback">Merci d'indiquer votre classe</div>
+                    }
                 </div>
                 <div className="form-group">
                     <label>Numéro étudiant</label>
