@@ -3,6 +3,7 @@ import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 
 //Routes
 import {CreateClasse, ManageClasses, EditClasse} from "./ClasseDashboard";
+import {EditUser} from "./UserDashboard";
 
 // Routeur Dashboard
 function DashboardRouter() {
@@ -15,6 +16,8 @@ function DashboardRouter() {
             <Route exact path={`${path}/classe/manage`} component={ManageClasses} />
             <Route path={`${path}/classe/create`} component={CreateClasse} />
             <Route path={`${path}/classe/edit/:classeId`} component={EditClasse} />
+
+            <Route path={`${path}/user/edit/:userId`} component={EditUser} />
         </Switch>
     );
 }

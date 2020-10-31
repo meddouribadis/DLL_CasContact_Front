@@ -36,7 +36,7 @@ function HomePage() {
                         {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
                         {signalements.items && signalements.items.length == 0 && <p>Bonne nouvelle, aucun cas contact !</p>}
                         {signalements.items && signalements.items.map((signalement, index) => [
-                                <a href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+                                <a href="#" key={signalement.id} className="list-group-item list-group-item-action flex-column align-items-start">
                                     <div className="d-flex w-100 justify-content-between">
                                         <h5 className="mb-1">{signalement.User.firstName} {signalement.User.lastName}</h5>
                                         <small>{signalement.User.classe.nom}</small>

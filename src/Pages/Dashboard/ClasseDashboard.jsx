@@ -202,7 +202,7 @@ function EditClasse() {
                                 <th scope="col">Nom</th>
                                 <th scope="col">Code</th>
                                 <th scope="col">Numéro Etudiant</th>
-                                <th scope="col">Infection</th>
+                                <th scope="col">Signalement</th>
                                 <th scope="col">Action</th>
 
                             </tr>
@@ -215,7 +215,7 @@ function EditClasse() {
                                     <td>{student.firstName}</td>
                                     <td>{student.lastName}</td>
                                     <td>{student.numEtud}</td>
-                                    <td style={{backgroundColor: '#64ea83'}}>Non</td>
+                                    <td style={student.signalements.length > 0 ? {backgroundColor: '#e53939'} : {backgroundColor: '#64ea83'}}>{student.signalements.length > 0 ? "Oui" : "Non"}</td>
                                     <td>
                                         <Link to={{pathname: `/dashboard/classe/edit/${student.id}`}} className="btn btn-primary">Modifier</Link>
                                         <Link to={{pathname: `/dashboard/classe/edit/${student.id}`}} className="btn btn-danger">Retirer</Link>
@@ -232,4 +232,4 @@ function EditClasse() {
 }
 
 
-export {CreateClasse,ManageClasses, EditClasse};
+export {CreateClasse, ManageClasses, EditClasse};
