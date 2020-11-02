@@ -1,7 +1,7 @@
-import { userConstants } from '../_constants';
-import { userService } from '../_services';
-import { alertActions } from './';
-import { history } from '../_helpers';
+import {userConstants} from '../_constants';
+import {userService} from '../_services';
+import {alertActions } from './';
+import {history} from '../_helpers';
 
 export const userActions = {
     login,
@@ -9,6 +9,7 @@ export const userActions = {
     register,
     getAll,
     getById,
+    update,
     delete: _delete
 };
 
@@ -95,6 +96,28 @@ function getById(id) {
     function request() { return { type: userConstants.GETBYID_REQUEST } }
     function success(user) { return { type: userConstants.GETBYID_SUCCESS, user } }
     function failure(error) { return { type: userConstants.GETBYID_FAILURE, error } }
+}
+
+function update(user) {
+    return dispatch => {
+        dispatch(request(user));
+
+        userService.update(user)
+            .then(
+                user => {
+                    dispatch(success(user));
+                    dispatch(alertActions.success('Utilisateur mise à jour avec succès'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.PUT_USER_REQUEST, user } }
+    function success(user) { return { type: userConstants.PUT_USER_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.PUT_USER_FAILURE, error } }
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript

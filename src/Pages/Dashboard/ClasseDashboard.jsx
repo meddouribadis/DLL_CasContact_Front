@@ -217,7 +217,7 @@ function EditClasse() {
                                     <td>{student.numEtud}</td>
                                     <td style={student.signalements.length > 0 ? {backgroundColor: '#e53939'} : {backgroundColor: '#64ea83'}}>{student.signalements.length > 0 ? "Oui" : "Non"}</td>
                                     <td>
-                                        <Link to={{pathname: `/dashboard/classe/edit/${student.id}`}} className="btn btn-primary">Modifier</Link>
+                                        <Link to={{pathname: `/dashboard/user/edit/${student.id}`}} className="btn btn-primary">Modifier</Link>
                                         <Link to={{pathname: `/dashboard/classe/edit/${student.id}`}} className="btn btn-danger">Retirer</Link>
                                     </td>
                                 </tr>
