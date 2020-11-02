@@ -47,7 +47,7 @@ export function signalements(state = {}, action) {
             };
         case signalementConstants.GETBYID_SUCCESS:
             return {
-                currentCourse: action.signalement
+                currentSignalement: action.signalement
             };
         case signalementConstants.GETBYID_FAILURE:
             return {
@@ -74,6 +74,19 @@ export function signalements(state = {}, action) {
                 currentSignalement: action.signalement
             };
         case signalementConstants.PUT_SIGNALEMENT_FAILURE:
+            return {
+                error: action.error
+            };
+
+        case signalementConstants.POST_DOC_REQUEST:
+            return {
+                documentUpload: true
+            };
+        case signalementConstants.POST_DOC_SUCCESS:
+            return {
+                uploadedDoc: action.document
+            };
+        case signalementConstants.POST_DOC_FAILURE:
             return {
                 error: action.error
             };

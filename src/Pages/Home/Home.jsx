@@ -78,7 +78,7 @@ function HomePage() {
                     <a className="btn btn-warning" href="/signalement/cas-contact" role="button">Je suis cas contact</a>
                 </div>
                 <div className="col-4">
-                    <a className="btn btn-primary" href="/dashboard/classe/manage" role="button">Gérer mes classes</a>
+                    <a className="btn btn-primary" href="/signalement" role="button">Voir mes signalements</a>
                 </div>
             </div>
             }

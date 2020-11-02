@@ -214,7 +214,7 @@ function MesSignalements(){
                             <td>{new Date(signalement.dateDebut).toLocaleDateString()}</td>
                             <td>{new Date(signalement.dateFin).toLocaleDateString()}</td>
                             <td>{signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> : <p className={"btn btn-danger"}>Infection</p>}</td>
-                            <td><Link to={{pathname: `/dashboard/classe/edit/${signalement.id}`}} className="btn btn-primary">Voir</Link></td>
+                            <td><Link to={{pathname: `/signalement/view/${signalement.id}`}} className="btn btn-primary">Voir</Link></td>
                         </tr>
                     )}
                     </tbody>
@@ -228,4 +228,120 @@ function MesSignalements(){
 
 }
 
-export { SignalementInfectionPage, SignalementCasPage, MesSignalements };
+function VoirSignalement() {
+
+    let { signalementId } = useParams();
+    const dispatch = useDispatch();
+    const [submitted, setSubmitted] = useState(false);
+    const user = useSelector(state => state.authentication.user);
+    const [signalement, setSignalement] = useState(null);
+
+    const [selectedFiles, setSelectedFiles] = useState(undefined);
+    const [currentFile, setCurrentFile] = useState(undefined);
+    const [progress, setProgress] = useState(0);
+    const [message, setMessage] = useState("");
+    const [fileInfos, setFileInfos] = useState([]);
+
+    useEffect(() => {
+        dispatch(signalementActions.getById(signalementId)).then((data, err) => {
+            setSignalement(data.signalement);
+            console.log(signalement)
+        });
+    }, []);
+
+    function selectFile(e) {
+        const target = e.target;
+        setSelectedFiles(target.files);
+    }
+
+    function upload() {
+        let currentFile = selectedFiles[0];
+
+        setProgress(0);
+        setCurrentFile(currentFile);
+
+        dispatch(signalementActions.postDocument(currentFile, "2"));
+
+        setSelectedFiles(undefined);
+    }
+
+    return (
+        <div className="row">
+
+                {signalement === null && <em>Chargement...</em>}
+                {signalement !== null &&
+                <div className="col-12">
+                    <h1>Mon signalement</h1>
+                    <hr/>
+                    <div className="card">
+                        <div className="card-header">
+                            Signalement #{signalement.id}
+                        </div>
+                        <div className="card-body">
+                            <h5 className="card-title">Du {new Date(signalement.dateDebut).toLocaleDateString()} au {new Date(signalement.dateFin).toLocaleDateString()}</h5>
+                            {signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> : <p className={"btn btn-danger"}>Infection</p>}
+                            <p className="card-text">Vous pouvez effectuer ces actions :</p>
+                            <button className="btn btn-primary" type="button" data-toggle="collapse"
+                                    data-target="#uploadDocuments" aria-expanded="false"
+                                    aria-controls="uploadDocuments">Uploader des documents
+                            </button>
+                            <div className="collapse multi-collapse" id="uploadDocuments">
+                                <br/>
+                                <div className="card card-body">
+                                    <h6>Envoyer un justificatif :</h6>
+                                    <div>
+                                        {currentFile && (
+                                            <div className="progress">
+                                                <div
+                                                    className="progress-bar progress-bar-info progress-bar-striped"
+                                                    role="progressbar"
+                                                    aria-valuenow={progress}
+                                                    aria-valuemin="0"
+                                                    aria-valuemax="100"
+                                                    style={{ width: progress + "%" }}
+                                                >
+                                                    {progress}%
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        <label className="btn btn-default">
+                                            <input type="file" onChange={selectFile} />
+                                        </label>
+
+                                        <button
+                                            className="btn btn-success"
+                                            disabled={!selectedFiles}
+                                            onClick={upload}
+                                        >
+                                            Upload
+                                        </button>
+
+                                        <div className="alert alert-light" role="alert">
+                                            {message}
+                                        </div>
+
+                                        <div className="card">
+                                            <div className="card-header">List of Files</div>
+                                            <ul className="list-group list-group-flush">
+                                                {fileInfos &&
+                                                fileInfos.map((file, index) => (
+                                                    <li className="list-group-item" key={index}>
+                                                        <a href={file.url}>{file.name}</a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+
+        </div>
+    );
+}
+
+export { SignalementInfectionPage, SignalementCasPage, MesSignalements, VoirSignalement };
