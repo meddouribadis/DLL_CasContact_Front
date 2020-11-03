@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {documentActions, signalementActions, userActions} from "../../_actions";
+import config from 'config';
 
 function SignalementInfectionPage() {
 
@@ -267,7 +268,11 @@ function VoirSignalement() {
 
         setSubmitted(true);
         if (selectedFiles && documentData.user_id && documentData.type_id && documentData.signalement_id) {
-            dispatch(documentActions.postDocument(currentFile, documentData));
+            dispatch(documentActions.postDocument(currentFile, documentData)).then((data, err) => {
+                dispatch(signalementActions.getById(signalementId)).then((data, err) => {
+                    setSignalement(data.signalement);
+                });
+            });
             setSelectedFiles(undefined);
         }
     }
@@ -294,6 +299,21 @@ function VoirSignalement() {
                         <div className="card-body">
                             <h5 className="card-title">Du {new Date(signalement.dateDebut).toLocaleDateString()} au {new Date(signalement.dateFin).toLocaleDateString()}</h5>
                             {signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> : <p className={"btn btn-danger"}>Infection</p>}
+
+                            {signalement.Documents.length > 0 &&
+                                <div>
+                                    <h6>Documents :</h6>
+                                    <ul className="list-group">
+                                        {signalement.Documents && signalement.Documents.map((document, index) =>
+                                            <li className="list-group-item d-flex justify-content-between align-items-center">
+                                                {document.Ref_Doc_Type.nom} - {document.filename}
+                                                <a href={`${config.apiUrl}/documents/files/${document.filename}`} className="badge badge-primary badge-pill" target="_blank">Voir</a>
+                                            </li>
+                                        )}
+                                    </ul>
+                                </div>
+                            }
+                            <hr/>
                             <p className="card-text">Vous pouvez effectuer ces actions :</p>
                             <button className="btn btn-primary" type="button" data-toggle="collapse"
                                     data-target="#uploadDocuments" aria-expanded="false"

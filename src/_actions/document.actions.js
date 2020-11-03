@@ -11,19 +11,21 @@ export const documentActions = {
 
 function postDocument(document, documentData) {
     return dispatch => {
-        dispatch(request(document));
+        return new Promise((resolve, reject) => {
+            dispatch(request(document));
 
-        documentService.postDocument(document, documentData)
-            .then(
-                document => {
-                    dispatch(success(document));
-                    dispatch(alertActions.success('Document posté avec succès'));
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
+            documentService.postDocument(document, documentData)
+                .then(
+                    document => {
+                        resolve(dispatch(success(document)));
+                        dispatch(alertActions.success('Document posté avec succès'));
+                    },
+                    error => {
+                        dispatch(failure(error.toString()));
+                        dispatch(alertActions.error(error.toString()));
+                    }
+                );
+        });
     };
 
     function request(document) { return { type: documentConstants.POST_DOC_REQUEST, document } }
