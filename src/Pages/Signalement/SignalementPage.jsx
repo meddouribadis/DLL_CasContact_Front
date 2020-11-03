@@ -242,6 +242,11 @@ function VoirSignalement() {
     const [signalement, setSignalement] = useState(null);
     const [selectedFiles, setSelectedFiles] = useState(undefined);
     const [currentFile, setCurrentFile] = useState(undefined);
+    const [documentData, setDocumentData] = useState({
+        user_id: '',
+        signalement_id: '',
+        type_id: '',
+    });
 
     useEffect(() => {
         dispatch(documentActions.getDocTypes());
@@ -261,28 +266,24 @@ function VoirSignalement() {
         setCurrentFile(currentFile);
 
         setSubmitted(true);
-        if (selectedFiles) {
-            dispatch(signalementActions.postDocument(currentFile, "2"));
+        if (selectedFiles && documentData.user_id && documentData.type_id && documentData.signalement_id) {
+            dispatch(documentActions.postDocument(currentFile, documentData));
             setSelectedFiles(undefined);
         }
     }
 
     function handleChangeSelect(e) {
         const { name, value } = e.target;
-    }
-
-    function upload() {
-        let currentFile = selectedFiles[0];
-        setCurrentFile(currentFile);
-        dispatch(signalementActions.postDocument(currentFile, "2"));
-        setSelectedFiles(undefined);
+        documentData.type_id = value;
+        documentData.signalement_id = signalement.id+'';
+        documentData.user_id = user.id+'';
     }
 
     return (
         <div className="row">
 
                 {signalement === null && <em>Chargement...</em>}
-                {documents.docTypes && signalement !== null &&
+                {signalement !== null &&
                 <div className="col-12">
                     <h1>Mon signalement</h1>
                     <hr/>
@@ -302,8 +303,8 @@ function VoirSignalement() {
                                 <br/>
                                 <div className="card card-body">
                                     <h6>Envoyer un justificatif :</h6>
-
-                                    <form name="form" onSubmit={handleSubmit}>
+                                    { documents.docTypes &&
+                                        <form name="form" onSubmit={handleSubmit}>
 
                                         <div className="input-group">
                                             <div className="input-group-prepend">
@@ -313,30 +314,30 @@ function VoirSignalement() {
                                             <div className="custom-file">
                                                 <input type="file" onChange={selectFile} className="custom-file-input" id="inputGroupFile01"
                                                        aria-describedby="inputGroupFileAddon01" />
-                                                    <label className="custom-file-label" htmlFor="inputGroupFile01">{selectedFiles !== undefined ? selectedFiles[0].name : 'Choisir un fichier'}</label>
+                                                <label className="custom-file-label" htmlFor="inputGroupFile01">{selectedFiles !== undefined ? selectedFiles[0].name : 'Choisir un fichier'}</label>
                                             </div>
                                         </div>
-
+                                        <br/>
                                         <div className="form-group">
                                             <label>Type de fichier</label>
-                                            <select className={'form-control' + (submitted && !user.id_classe ? ' is-invalid' : '')} id="selectClasseId" name="id_classe" defaultValue={"none"} onChange={handleChangeSelect}>
+                                            <select className={'form-control' + (submitted && !documentData.type_id ? ' is-invalid' : '')} id="selectClasseId" name="id_classe" defaultValue={"none"} onChange={handleChangeSelect}>
                                                 <option value="none" disabled hidden></option>
                                                 {documents.docTypes && documents.docTypes.map((docType, index) =>
                                                     <option key={docType.id} value={docType.id+''}>{docType.nom}</option>
                                                 )}
                                             </select>
-                                            {submitted && !user.id_classe &&
-                                            <div className="invalid-feedback">Merci d'indiquer votre classe</div>
+                                            {submitted && !documentData.type_id &&
+                                            <div className="invalid-feedback">Merci de préciser le type de document</div>
                                             }
                                         </div>
 
                                         <div className="form-group">
-                                            <button className="btn btn-primary">
+                                            <button disabled={!selectedFiles} className="btn btn-primary">
                                                 Valider
                                             </button>
                                         </div>
                                     </form>
-
+                                    }
                                 </div>
                             </div>
                         </div>

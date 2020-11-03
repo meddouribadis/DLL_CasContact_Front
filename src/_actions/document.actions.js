@@ -9,11 +9,11 @@ export const documentActions = {
     delete: _delete
 };
 
-function postDocument(document, signalementId) {
+function postDocument(document, documentData) {
     return dispatch => {
         dispatch(request(document));
 
-        documentService.postDocument(document, signalementId)
+        documentService.postDocument(document, documentData)
             .then(
                 document => {
                     dispatch(success(document));

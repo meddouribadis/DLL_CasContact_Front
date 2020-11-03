@@ -16,12 +16,13 @@ function getDocTypes() {
     return fetch(`${config.apiUrl}/documents/types`, requestOptions).then(handleResponse);
 }
 
-function postDocument(document, signalementId) {
+function postDocument(document, documentData) {
 
     const formData = new FormData();
     formData.append('file', document);
-    formData.append('UserId', "13");
-    formData.append('SignalementId', "2");
+    formData.append('UserId', documentData.user_id);
+    formData.append('SignalementId', documentData.signalement_id);
+    formData.append('RefDocTypeId', documentData.type_id);
 
     const requestOptions = {
         method: 'POST',
