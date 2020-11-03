@@ -8,7 +8,6 @@ export const signalementService = {
     getByUserId,
     postSignalement,
     putSignalement,
-    postDocument,
     update,
     delete: _delete
 };
@@ -67,22 +66,6 @@ function putSignalement(signalement, id) {
     };
 
     return fetch(`${config.apiUrl}/signalements/${id}`, requestOptions).then(handleResponse);
-}
-
-function postDocument(document, signalementId) {
-
-    const formData = new FormData();
-    formData.append('file', document);
-    formData.append('UserId', "13");
-    formData.append('SignalementId', "2");
-
-    const requestOptions = {
-        method: 'POST',
-        headers: { ...authHeader() },
-        body: formData
-    };
-
-    return fetch(`${config.apiUrl}/documents/upload`, requestOptions).then(handleResponse);
 }
 
 function update(signalement) {

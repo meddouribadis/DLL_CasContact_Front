@@ -78,19 +78,6 @@ export function signalements(state = {}, action) {
                 error: action.error
             };
 
-        case signalementConstants.POST_DOC_REQUEST:
-            return {
-                documentUpload: true
-            };
-        case signalementConstants.POST_DOC_SUCCESS:
-            return {
-                uploadedDoc: action.document
-            };
-        case signalementConstants.POST_DOC_FAILURE:
-            return {
-                error: action.error
-            };
-
         case signalementConstants.DELETE_REQUEST:
             // add 'deleting:true' property to user being deleted
             return {

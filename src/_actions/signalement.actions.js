@@ -10,7 +10,6 @@ export const signalementActions = {
     getByUserId,
     postSignalement,
     putSignalement,
-    postDocument,
     delete: _delete
 };
 
@@ -126,28 +125,6 @@ function putSignalement(signalement, id) {
     function request(signalement) { return { type: signalementConstants.PUT_SIGNALEMENT_REQUEST, signalement } }
     function success(signalement) { return { type: signalementConstants.PUT_SIGNALEMENT_SUCCESS, signalement } }
     function failure(error) { return { type: signalementConstants.PUT_SIGNALEMENT_FAILURE, error } }
-}
-
-function postDocument(document, signalementId) {
-    return dispatch => {
-        dispatch(request(document));
-
-        signalementService.postDocument(document, signalementId)
-            .then(
-                document => {
-                    dispatch(success(document));
-                    dispatch(alertActions.success('Document posté avec succès'));
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
-    };
-
-    function request(document) { return { type: signalementConstants.POST_DOC_REQUEST, document } }
-    function success(document) { return { type: signalementConstants.POST_DOC_SUCCESS, document } }
-    function failure(error) { return { type: signalementConstants.POST_DOC_FAILURE, error } }
 }
 
 function _delete(id) {

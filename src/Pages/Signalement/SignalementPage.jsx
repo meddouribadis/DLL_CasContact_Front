@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { signalementActions } from "../../_actions";
+import {documentActions, signalementActions, userActions} from "../../_actions";
 
 function SignalementInfectionPage() {
 
@@ -232,20 +232,21 @@ function VoirSignalement() {
 
     let { signalementId } = useParams();
     const dispatch = useDispatch();
-    const [submitted, setSubmitted] = useState(false);
-    const user = useSelector(state => state.authentication.user);
-    const [signalement, setSignalement] = useState(null);
 
+    //Stores
+    const user = useSelector(state => state.authentication.user);
+    const documents = useSelector(state => state.documents);
+
+    // Hooks
+    const [submitted, setSubmitted] = useState(false);
+    const [signalement, setSignalement] = useState(null);
     const [selectedFiles, setSelectedFiles] = useState(undefined);
     const [currentFile, setCurrentFile] = useState(undefined);
-    const [progress, setProgress] = useState(0);
-    const [message, setMessage] = useState("");
-    const [fileInfos, setFileInfos] = useState([]);
 
     useEffect(() => {
+        dispatch(documentActions.getDocTypes());
         dispatch(signalementActions.getById(signalementId)).then((data, err) => {
             setSignalement(data.signalement);
-            console.log(signalement)
         });
     }, []);
 
@@ -254,14 +255,26 @@ function VoirSignalement() {
         setSelectedFiles(target.files);
     }
 
-    function upload() {
+    function handleSubmit(e) {
+        e.preventDefault();
         let currentFile = selectedFiles[0];
-
-        setProgress(0);
         setCurrentFile(currentFile);
 
-        dispatch(signalementActions.postDocument(currentFile, "2"));
+        setSubmitted(true);
+        if (selectedFiles) {
+            dispatch(signalementActions.postDocument(currentFile, "2"));
+            setSelectedFiles(undefined);
+        }
+    }
 
+    function handleChangeSelect(e) {
+        const { name, value } = e.target;
+    }
+
+    function upload() {
+        let currentFile = selectedFiles[0];
+        setCurrentFile(currentFile);
+        dispatch(signalementActions.postDocument(currentFile, "2"));
         setSelectedFiles(undefined);
     }
 
@@ -269,7 +282,7 @@ function VoirSignalement() {
         <div className="row">
 
                 {signalement === null && <em>Chargement...</em>}
-                {signalement !== null &&
+                {documents.docTypes && signalement !== null &&
                 <div className="col-12">
                     <h1>Mon signalement</h1>
                     <hr/>
@@ -289,50 +302,41 @@ function VoirSignalement() {
                                 <br/>
                                 <div className="card card-body">
                                     <h6>Envoyer un justificatif :</h6>
-                                    <div>
-                                        {currentFile && (
-                                            <div className="progress">
-                                                <div
-                                                    className="progress-bar progress-bar-info progress-bar-striped"
-                                                    role="progressbar"
-                                                    aria-valuenow={progress}
-                                                    aria-valuemin="0"
-                                                    aria-valuemax="100"
-                                                    style={{ width: progress + "%" }}
-                                                >
-                                                    {progress}%
-                                                </div>
+
+                                    <form name="form" onSubmit={handleSubmit}>
+
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text"
+                                                      id="inputGroupFileAddon01">Fichier</span>
                                             </div>
-                                        )}
-
-                                        <label className="btn btn-default">
-                                            <input type="file" onChange={selectFile} />
-                                        </label>
-
-                                        <button
-                                            className="btn btn-success"
-                                            disabled={!selectedFiles}
-                                            onClick={upload}
-                                        >
-                                            Upload
-                                        </button>
-
-                                        <div className="alert alert-light" role="alert">
-                                            {message}
+                                            <div className="custom-file">
+                                                <input type="file" onChange={selectFile} className="custom-file-input" id="inputGroupFile01"
+                                                       aria-describedby="inputGroupFileAddon01" />
+                                                    <label className="custom-file-label" htmlFor="inputGroupFile01">{selectedFiles !== undefined ? selectedFiles[0].name : 'Choisir un fichier'}</label>
+                                            </div>
                                         </div>
 
-                                        <div className="card">
-                                            <div className="card-header">List of Files</div>
-                                            <ul className="list-group list-group-flush">
-                                                {fileInfos &&
-                                                fileInfos.map((file, index) => (
-                                                    <li className="list-group-item" key={index}>
-                                                        <a href={file.url}>{file.name}</a>
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                        <div className="form-group">
+                                            <label>Type de fichier</label>
+                                            <select className={'form-control' + (submitted && !user.id_classe ? ' is-invalid' : '')} id="selectClasseId" name="id_classe" defaultValue={"none"} onChange={handleChangeSelect}>
+                                                <option value="none" disabled hidden></option>
+                                                {documents.docTypes && documents.docTypes.map((docType, index) =>
+                                                    <option key={docType.id} value={docType.id+''}>{docType.nom}</option>
+                                                )}
+                                            </select>
+                                            {submitted && !user.id_classe &&
+                                            <div className="invalid-feedback">Merci d'indiquer votre classe</div>
+                                            }
                                         </div>
-                                    </div>
+
+                                        <div className="form-group">
+                                            <button className="btn btn-primary">
+                                                Valider
+                                            </button>
+                                        </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>

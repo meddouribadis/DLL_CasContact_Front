@@ -6,6 +6,7 @@ import { users } from './users.reducer';
 import { courses } from './courses.reducer';
 import { classes } from './classes.reducer';
 import { signalements } from './signalements.reducer';
+import { documents } from './documents.reducer';
 import { alert } from './alert.reducer';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     courses,
     classes,
     signalements,
+    documents,
     alert
 });
 
