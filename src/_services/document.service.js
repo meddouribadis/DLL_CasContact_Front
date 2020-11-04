@@ -39,7 +39,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`${config.apiUrl}/signalements/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${config.apiUrl}/documents/${id}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

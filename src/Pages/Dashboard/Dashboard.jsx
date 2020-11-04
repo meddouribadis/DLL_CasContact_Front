@@ -4,7 +4,7 @@ import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 //Routes
 import {CreateClasse, ManageClasses, EditClasse} from "./ClasseDashboard";
 import {EditUser} from "./UserDashboard";
-import {ManageSignalements} from "./SignalementDashboard";
+import {EditSignalement, ManageSignalements} from "./SignalementDashboard";
 
 // Routeur Dashboard
 function DashboardRouter() {
@@ -21,6 +21,7 @@ function DashboardRouter() {
             <Route path={`${path}/user/edit/:userId`} component={EditUser} />
 
             <Route path={`${path}/signalements`} component={ManageSignalements} />
+            <Route path={`${path}/signalement/edit/:signalementId`} component={EditSignalement} />
         </Switch>
     );
 }

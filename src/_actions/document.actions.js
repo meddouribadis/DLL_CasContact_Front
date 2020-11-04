@@ -50,5 +50,19 @@ function getDocTypes() {
 }
 
 function _delete(id) {
-    // TO DO
+    return dispatch => {
+        return new Promise((resolve, reject) => {
+            dispatch(request(id));
+
+            documentService.delete(id)
+                .then(
+                    id => resolve(dispatch(success(id))),
+                    error => reject(dispatch(failure(id, error.toString()))),
+                );
+        });
+    };
+
+    function request(id) { return { type: documentConstants.DELETE_REQUEST, id } }
+    function success(id) { return { type: documentConstants.DELETE_SUCCESS, id } }
+    function failure(id, error) { return { type: documentConstants.DELETE_FAILURE, id, error } }
 }
