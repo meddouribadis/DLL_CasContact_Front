@@ -4,6 +4,7 @@ import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 //Routes
 import {CreateClasse, ManageClasses, EditClasse} from "./ClasseDashboard";
 import {EditUser} from "./UserDashboard";
+import {ManageSignalements} from "./SignalementDashboard";
 
 // Routeur Dashboard
 function DashboardRouter() {
@@ -13,11 +14,13 @@ function DashboardRouter() {
     return (
         <Switch>
             <Route exact path={path} component={DashboardHome} />
-            <Route exact path={`${path}/classe/manage`} component={ManageClasses} />
+            <Route exact path={`${path}/classes`} component={ManageClasses} />
             <Route path={`${path}/classe/create`} component={CreateClasse} />
             <Route path={`${path}/classe/edit/:classeId`} component={EditClasse} />
 
             <Route path={`${path}/user/edit/:userId`} component={EditUser} />
+
+            <Route path={`${path}/signalements`} component={ManageSignalements} />
         </Switch>
     );
 }
@@ -31,10 +34,8 @@ function DashboardHome() {
                 <h1>Tableau de bord !</h1>
                 <hr/>
                 <p>Vous pouvez réalisez les actions suivantes :</p>
-                <Link to={{pathname: "/dashboard/classe/create"}} className="btn btn-link">Créer une classe</Link>
-                <Link to={{pathname: "/dashboard/classe/manage"}} className="btn btn-link">Gérer les classes</Link>
-                <Link to={{pathname: "/dashboard/create-category"}} className="btn btn-link">Créer une catégorie</Link>
-                <Link to={{pathname: "/dashboard/manage-categories"}} className="btn btn-link">Gérer les catégories</Link>
+                <Link to={{pathname: "/dashboard/classes/create"}} className="btn btn-link">Créer une classe</Link>
+                <Link to={{pathname: "/dashboard/classes"}} className="btn btn-link">Gérer les classes</Link>
             </div>
         </div>
     );

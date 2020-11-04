@@ -8,11 +8,7 @@
 
 .site-header a {
     color: white;
-    transition: ease-in-out color .15s;
-}
-
-.site-header a {
-    color: white;
+    border-bottom: 2px solid rgba(255, 255, 255, 0);
     transition: ease-in-out color .15s;
 }
 
@@ -25,7 +21,7 @@
 }
 
 .site-header a:hover {
-    color: #b7b7b7;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
     text-decoration: none;
 }
 

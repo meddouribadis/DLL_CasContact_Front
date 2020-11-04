@@ -59,7 +59,7 @@ function HomePage() {
                     <a className="btn btn-primary" href="#" role="button">Gérer mes élèves</a>
                 </div>
                 <div className="col-4">
-                    <a className="btn btn-primary" href="/dashboard/classe/manage" role="button">Gérer mes classes</a>
+                    <a className="btn btn-primary" href="/dashboard/classes" role="button">Gérer mes classes</a>
                 </div>
             </div>
             }
