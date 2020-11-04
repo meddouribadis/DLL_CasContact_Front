@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import logo from '../../Assets/univ_evvry_logo.png';
 import {useSelector} from "react-redux";
 
@@ -23,10 +23,21 @@ function NavBar() {
                 </div>
             );
         }
-        return [
-            <a className="py-2 d-none d-md-inline-block" href="/login">Connexion</a>,
-            <a className="py-2 d-none d-md-inline-block" href="/register">Inscription</a>
-        ];
+        return (
+            <Fragment>
+                <a className="py-2 d-none d-md-inline-block" href="/login">Connexion</a>
+                <a className="py-2 d-none d-md-inline-block" href="/register">Inscription</a>
+            </Fragment>
+        );
+    }
+
+    function TeacherLinks(){
+        return (
+                <Fragment>
+                    <a className="py-2 d-none d-md-inline-block" href="/dashboard/classes">Mes classes</a>
+                    <a className="py-2 d-none d-md-inline-block" href="/calendrier">Calendrier</a>
+                </Fragment>
+            );
     }
 
     return (
@@ -51,9 +62,7 @@ function NavBar() {
 
 
             {user && user.role === 'TEACHER' &&
-                    <a className="py-2 d-none d-md-inline-block" href="/dashboard/classes">Mes classes</a>
-                &&
-                    <a className="py-2 d-none d-md-inline-block" href="#">Calendrier</a>
+                <TeacherLinks/>
             }
 
             <a className="top-link py-2 d-none d-md-inline-block" href="#">Information</a>

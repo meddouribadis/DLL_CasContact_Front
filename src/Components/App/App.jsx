@@ -46,9 +46,9 @@ function App() {
             <Switch>
               <PrivateRoute exact path="/" component={HomePage} />
               <PrivateRoute path="/signalement" component={SignalementRouter} />
-              <PrivateRoute path="/calendrier" component={CalendrierPage} />
               <PrivateRoute path="/profile" component={ProfileRouter} />
 
+              <SecuredRoute path="/calendrier" component={CalendrierPage} />
               <SecuredRoute path="/dashboard" component={DashboardRouter} />
 
               <Route path="/login" component={LoginPage} />

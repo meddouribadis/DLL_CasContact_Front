@@ -53,7 +53,7 @@ function HomePage() {
                     <br/>
                 </div>
                 <div className="col-4">
-                    <a className="btn btn-primary" href="#" role="button">Calendrier</a>
+                    <a className="btn btn-primary" href="/calendrier" role="button">Calendrier</a>
                 </div>
                 <div className="col-4">
                     <a className="btn btn-primary" href="#" role="button">Gérer mes élèves</a>
