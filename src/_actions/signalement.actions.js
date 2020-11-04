@@ -31,13 +31,15 @@ function getAll() {
 
 function getAllActive() {
     return dispatch => {
-        dispatch(request());
+        return new Promise((resolve, reject) => {
+            dispatch(request());
 
-        signalementService.getAllActive()
-            .then(
-                signalements => dispatch(success(signalements)),
-                error => dispatch(failure(error.toString()))
-            );
+            signalementService.getAllActive()
+                .then(
+                    signalements => resolve(dispatch(success(signalements))),
+                    error => reject(dispatch(failure(error.toString())))
+                );
+        });
     };
 
     function request() { return { type: signalementConstants.GETALLACTIVE_REQUEST } }

@@ -145,7 +145,7 @@ function EditSignalement() {
                             <h6>Documents :</h6>
                             <ul className="list-group">
                                 {signalement.Documents && signalement.Documents.map((document, index) =>
-                                    <li className="list-group-item d-flex justify-content-between align-items-center">
+                                    <li key={document.id} className="list-group-item d-flex justify-content-between align-items-center">
                                         {document.Ref_Doc_Type.nom} - {document.filename}
                                         <button className="btn badge btn-danger badge-danger badge-pill" onClick={() => handleDelete(document.id)}>Supprimer</button>
                                         <a href={`${config.apiUrl}/documents/files/${document.filename}`} className="badge badge-primary badge-pill" target="_blank">Voir</a>

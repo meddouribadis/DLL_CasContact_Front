@@ -19,6 +19,7 @@ import "./App.css";
 import {DashboardRouter} from "../../Pages/Dashboard";
 import {SignalementRouter} from "../../Pages/Signalement";
 import {ProfileRouter} from "../../Pages/Profile";
+import {CalendrierPage} from "../../Pages/Calendrier";
 
 
 function App() {
@@ -45,8 +46,10 @@ function App() {
             <Switch>
               <PrivateRoute exact path="/" component={HomePage} />
               <PrivateRoute path="/signalement" component={SignalementRouter} />
-              <SecuredRoute path="/dashboard" component={DashboardRouter} />
+              <PrivateRoute path="/calendrier" component={CalendrierPage} />
               <PrivateRoute path="/profile" component={ProfileRouter} />
+
+              <SecuredRoute path="/dashboard" component={DashboardRouter} />
 
               <Route path="/login" component={LoginPage} />
               <Route path="/register" component={RegisterPage} />

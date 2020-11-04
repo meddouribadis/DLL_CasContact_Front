@@ -51,11 +51,11 @@ function NavBar() {
 
 
             {user && user.role === 'TEACHER' &&
-                [
-                    <a className="py-2 d-none d-md-inline-block" href="/dashboard/classes">Mes classes</a>,
+                    <a className="py-2 d-none d-md-inline-block" href="/dashboard/classes">Mes classes</a>
+                &&
                     <a className="py-2 d-none d-md-inline-block" href="#">Calendrier</a>
-                ]
             }
+
             <a className="top-link py-2 d-none d-md-inline-block" href="#">Information</a>
             <UserInfo/>
         </div>
