@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {classeActions, userActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
+import {history} from "../../_helpers";
 
 function CreateClasse() {
 
@@ -116,6 +117,7 @@ function ManageClasses() {
 
             <div className="col-12">
                 <Link to={{pathname: `/dashboard/classe/create`}} className="btn btn-success">Ajouter une classe</Link>
+                <button onClick={history.goBack} className="btn btn-link">Retour</button>
             </div>
         </div>
     );

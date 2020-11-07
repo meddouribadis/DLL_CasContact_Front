@@ -36,7 +36,7 @@ function HomePage() {
                         {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
                         {signalements.items && signalements.items.length == 0 && <p>Bonne nouvelle, aucun cas contact !</p>}
                         {signalements.items && signalements.items.map((signalement, index) => [
-                                <a href="#" key={signalement.id} className="list-group-item list-group-item-action flex-column align-items-start">
+                                <a href={'dashboard/signalement/edit/'+signalement.id} key={signalement.id} className="list-group-item list-group-item-action flex-column align-items-start">
                                     <div className="d-flex w-100 justify-content-between">
                                         <h5 className="mb-1">{signalement.User.firstName} {signalement.User.lastName}</h5>
                                         <small>{signalement.User.classe.nom}</small>
@@ -52,13 +52,16 @@ function HomePage() {
                     <h2>Tableau de bord </h2>
                     <br/>
                 </div>
-                <div className="col-4">
+                <div className="col-3">
                     <a className="btn btn-primary" href="/calendrier" role="button">Calendrier</a>
                 </div>
-                <div className="col-4">
+                <div className="col-3">
                     <a className="btn btn-primary" href="#" role="button">Gérer mes élèves</a>
                 </div>
-                <div className="col-4">
+                <div className="col-3">
+                    <a className="btn btn-warning" href="/dashboard/signalements" role="button">Signalements</a>
+                </div>
+                <div className="col-3">
                     <a className="btn btn-primary" href="/dashboard/classes" role="button">Gérer mes classes</a>
                 </div>
             </div>

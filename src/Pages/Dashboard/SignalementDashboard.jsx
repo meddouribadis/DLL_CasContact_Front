@@ -27,7 +27,7 @@ function ManageSignalements() {
                         <thead className={"thead-dark"}>
                         <tr>
                             <th scope="col">Date Début</th>
-                            <th scope="col">Code</th>
+                            <th scope="col">Date Fin</th>
                             <th scope="col">Nom de l'élève</th>
                             <th scope="col">Actif</th>
                             <th scope="col">Action</th>
@@ -41,12 +41,13 @@ function ManageSignalements() {
                                 <td>{new Date(signalement.dateFin).toLocaleDateString()}</td>
                                 <td>{signalement.User.firstName} {signalement.User.lastName}</td>
                                 <td>Non</td>
-                                <td><Link to={{pathname: `/dashboard/signalement/edit/${signalement.id}`}} className="btn btn-primary">Modifier</Link></td>
+                                <td><Link to={{pathname: `/dashboard/signalement/edit/${signalement.id}`}} className="btn btn-primary">Voir</Link></td>
                             </tr>
                         )}
                         </tbody>
                     </table>
                 }
+                <button onClick={history.goBack} className="btn btn-primary">Retour</button>
             </div>
         </div>
     )
