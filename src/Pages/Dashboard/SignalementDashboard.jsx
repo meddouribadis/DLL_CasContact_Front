@@ -3,6 +3,7 @@ import {documentActions, signalementActions, userActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
 import config from 'config';
+import {history} from "../../_helpers";
 
 function ManageSignalements() {
 
@@ -160,11 +161,12 @@ function EditSignalement() {
                                 data-target="#uploadDocuments" aria-expanded="false"
                                 aria-controls="uploadDocuments">Uploader des documents
                         </button>
+                        <button onClick={history.goBack} className="btn btn-link">Annuler</button>
                         <div className="collapse multi-collapse" id="uploadDocuments">
                             <br/>
                             <div className="card card-body">
                                 <h6>Envoyer un justificatif :</h6>
-                                { documents.docTypes &&
+                                {documents.docTypes &&
                                 <form name="form" onSubmit={handleSubmit}>
 
                                     <div className="input-group">

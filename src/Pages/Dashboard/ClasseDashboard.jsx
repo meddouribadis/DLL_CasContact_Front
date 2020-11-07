@@ -62,7 +62,7 @@ function CreateClasse() {
                         <button className="btn btn-primary">
                             Valider
                         </button>
-                        <Link to="/dashboard/classe/manage" className="btn btn-link">Annuler</Link>
+                        <Link to="/dashboard/classes" className="btn btn-link">Annuler</Link>
                     </div>
                 </form>
             </div>
@@ -188,7 +188,7 @@ function EditClasse() {
                             <button className="btn btn-primary">
                                 Valider
                             </button>
-                            <Link to="/dashboard/classe/manage" className="btn btn-link">Annuler</Link>
+                            <Link to="/dashboard/classes" className="btn btn-link">Annuler</Link>
                         </div>
                     </form>
                 }
@@ -210,7 +210,7 @@ function EditClasse() {
 
                             <tbody>
                             {classe.students.map((student, index) =>
-                                <tr>
+                                <tr key={student.id}>
                                     <th scope="row">{student.id}</th>
                                     <td>{student.firstName}</td>
                                     <td>{student.lastName}</td>

@@ -35,6 +35,7 @@ function NavBar() {
         return (
                 <Fragment>
                     <a className="py-2 d-none d-md-inline-block" href="/dashboard/classes">Mes classes</a>
+                    <a className="py-2 d-none d-md-inline-block" href="/dashboard/signalements">Signalements</a>
                     <a className="py-2 d-none d-md-inline-block" href="/calendrier">Calendrier</a>
                 </Fragment>
             );
