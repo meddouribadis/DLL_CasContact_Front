@@ -12,7 +12,7 @@ function HomePage() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(signalementActions.getAllActive());
+        if(user.role === 'TEACHER') dispatch(signalementActions.getAllActive());
     }, []);
 
     return (
