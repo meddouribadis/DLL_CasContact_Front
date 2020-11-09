@@ -3,6 +3,13 @@ import {classeActions, userActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
 import {history} from "../../_helpers";
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory, { PaginationProvider } from 'react-bootstrap-table2-paginator';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+
+import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import 'react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.css';
 
 function CreateClasse() {
 
@@ -133,11 +140,63 @@ function EditClasse() {
     const [classe, setClasse] = useState(null);
     const [submitted, setSubmitted] = useState(false);
 
+    // Table
+    const columns = [
+        {
+            dataField: 'id',
+            text: '#',
+            sort: true
+        }, {
+            dataField: 'firstName',
+            text: 'Nom',
+            sort: true
+        }, {
+            dataField: 'lastName',
+            text: 'Prénom',
+            sort: true
+        }, {
+            dataField: 'numEtud',
+            text: 'Numéro Etudiant',
+            sort: true
+        }, {
+            dataField: '',
+            text: 'Infection',
+            formatter: GetInfectedFormat,
+        }, {
+            text: "Action",
+            dataField: "",
+            formatter: GetActionFormat,
+        }
+    ];
+    const { SearchBar } = Search;
+
     useEffect(() => {
         dispatch(classeActions.getById(classeId)).then((data, err) => {
             setClasse(data.classe);
         });
     }, []);
+
+    function GetActionFormat(cell, row) {
+        return (
+            <div>
+                <Link to={{pathname: `/dashboard/user/edit/${row.id}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
+                    Modifier
+                </Link>
+                <Link to={{pathname: `/dashboard/user/edit/${row.id}`}} className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm">
+                    Supprimer
+                </Link>
+            </div>
+        );
+    }
+
+    function GetInfectedFormat(cell, row) {
+        console.log(cell, row);
+        return (
+            <div style={row.signalements.length > 0 ? {backgroundColor: '#e53939'} : {backgroundColor: '#64ea83'}}>
+               {row.signalements.length > 0 ? "Oui" : "Non"}
+            </div>
+        );
+    }
 
     function handleChange(e) {
         const target = e.target;
@@ -197,41 +256,29 @@ function EditClasse() {
                 {classe !== null && classe.students.length > 0 &&
                     <div className="list_students">
                         <h2>Liste des élèves de cette classe</h2>
-                        <table className="table">
-                            <thead className={"thead-dark"}>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Code</th>
-                                <th scope="col">Numéro Etudiant</th>
-                                <th scope="col">Signalement</th>
-                                <th scope="col">Action</th>
-
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            {classe.students.map((student, index) =>
-                                <tr key={student.id}>
-                                    <th scope="row">{student.id}</th>
-                                    <td>{student.firstName}</td>
-                                    <td>{student.lastName}</td>
-                                    <td>{student.numEtud}</td>
-                                    <td style={student.signalements.length > 0 ? {backgroundColor: '#e53939'} : {backgroundColor: '#64ea83'}}>{student.signalements.length > 0 ? "Oui" : "Non"}</td>
-                                    <td>
-                                        <Link to={{pathname: `/dashboard/user/edit/${student.id}`}} className="btn btn-primary">Modifier</Link>
-                                        <Link to={{pathname: `/dashboard/classe/edit/${student.id}`}} className="btn btn-danger">Retirer</Link>
-                                    </td>
-                                </tr>
-                            )}
-                            </tbody>
-                        </table>
+                        <ToolkitProvider
+                            keyField="id"
+                            data={ classe.students }
+                            columns={ columns }
+                            search={}
+                        >
+                            {
+                                props => (
+                                    <div>
+                                        <SearchBar { ...props.searchProps } />
+                                        <BootstrapTable
+                                            { ...props.baseProps }
+                                            pagination={ paginationFactory() }
+                                        />
+                                    </div>
+                                )
+                            }
+                        </ToolkitProvider>
                     </div>
                 }
             </div>
         </div>
     );
 }
-
 
 export {CreateClasse, ManageClasses, EditClasse};
