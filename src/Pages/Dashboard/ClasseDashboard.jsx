@@ -84,9 +84,44 @@ function ManageClasses() {
     const classes = useSelector(state => state.classes);
     const dispatch = useDispatch();
 
+    // Table
+    const columns = [
+        {
+            dataField: 'id',
+            text: '#',
+            sort: true
+        }, {
+            dataField: 'nom',
+            text: 'Nom',
+            sort: true
+        }, {
+            dataField: 'students.length',
+            text: 'Nombre d\'élèves',
+            sort: true
+        }, {
+            text: "Action",
+            dataField: "",
+            formatter: GetActionFormat,
+        }
+    ];
+    const { SearchBar } = Search;
+
     useEffect(() => {
         dispatch(classeActions.getAll());
     }, []);
+
+    function GetActionFormat(cell, row) {
+        return (
+            <div>
+                <Link to={{pathname: `/dashboard/classe/edit/${row.id}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
+                    Modifier
+                </Link>
+                <Link to={{pathname: `/dashboard/user/edit/${row.id}`}} className="btn btn-outline-danger btn-sm ml-2 ts-buttom" size="sm">
+                    Supprimer
+                </Link>
+            </div>
+        );
+    }
 
     return (
         <div className="row">
@@ -96,29 +131,24 @@ function ManageClasses() {
                 {classes.loading && <em>Chargement des classes...</em>}
                 {classes.error && <span className="text-danger">ERROR: {classes.error}</span>}
                 {classes.items &&
-                <table className="table">
-                    <thead className={"thead-dark"}>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Code</th>
-                        <th scope="col">Nombre d'élèves</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    {classes.items.map((classe, index) =>
-                        <tr key={classe.id}>
-                            <th scope="row">{classe.id}</th>
-                            <td>{classe.nom}</td>
-                            <td>{classe.code}</td>
-                            <td>{classe.students.length}</td>
-                            <td><Link to={{pathname: `/dashboard/classe/edit/${classe.id}`}} className="btn btn-primary">Modifier</Link></td>
-                        </tr>
-                    )}
-                    </tbody>
-                </table>
+                    <ToolkitProvider
+                        keyField="id"
+                        data={ classes.items }
+                        columns={ columns }
+                        search
+                    >
+                        {
+                            props => (
+                                <div>
+                                    <SearchBar { ...props.searchProps } />
+                                    <BootstrapTable
+                                        { ...props.baseProps }
+                                        pagination={ paginationFactory() }
+                                    />
+                                </div>
+                            )
+                        }
+                    </ToolkitProvider>
                 }
             </div>
 
@@ -260,7 +290,7 @@ function EditClasse() {
                             keyField="id"
                             data={ classe.students }
                             columns={ columns }
-                            search={}
+                            search
                         >
                             {
                                 props => (
