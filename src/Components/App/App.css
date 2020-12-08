@@ -4,7 +4,7 @@ body {
 }
 
 .site-header {
-    background: rgba(0,0,0,0.8);
+    background: var(--header-bg);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
     padding: .10rem;

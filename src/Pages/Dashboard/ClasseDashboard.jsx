@@ -305,6 +305,7 @@ function EditClasse() {
                                         <BootstrapTable
                                             { ...props.baseProps }
                                             pagination={ paginationFactory() }
+                                            bootstrap4={true}
                                         />
                                     </div>
                                 )
