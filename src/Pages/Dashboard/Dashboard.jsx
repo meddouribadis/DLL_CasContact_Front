@@ -39,25 +39,35 @@ function DashboardHome() {
             </div>
 
             <div className="row">
-                <DashCard title={"Elèves"}>
-                    <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <div className="d-flex flex-row flex-wrap justify-content-between">
-                        <Link to={{pathname: "/dashboard/classes"}} className="btn btn-outline-primary btn-sm mb-1 ts-buttom">Gérer les classes</Link>
-                        <Link to={{pathname: "/dashboard/classes/create"}} className="btn btn-outline-success btn-sm mb-1 ts-buttom">Créer une classe</Link>
+                <div className="col-4">
+                    <DashCard title={"Elèves"} className={"h-100"}>
+                        <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <div className="d-flex flex-row flex-wrap justify-content-between">
+                            <Link to={{pathname: "/dashboard/classes"}} className="btn btn-outline-primary btn-sm mb-1 ts-buttom">Gérer les classes</Link>
+                            <Link to={{pathname: "/dashboard/classes/create"}} className="btn btn-outline-success btn-sm mb-1 ts-buttom">Créer une classe</Link>
 
-                        <Link to={{pathname: "/dashboard/classes"}} className="btn btn-outline-danger btn-sm mb-1 ts-buttom">Supprimer une classe</Link>
-                    </div>
-                </DashCard>
+                            <Link to={{pathname: "/dashboard/classes"}} className="btn btn-outline-danger btn-sm mb-1 ts-buttom">Supprimer une classe</Link>
+                        </div>
+                    </DashCard>
+                </div>
 
-                <DashCard title={"Classes"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+                <div className="col-4">
+                    <DashCard title={"Classes"} className={"h-100"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+                </div>
 
-                <DashCard title={"Signalements"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+                <div className="col-4">
+                    <DashCard title={"Signalements"} className={"h-100"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+                </div>
             </div>
 
             <div className="row mt-3">
-                <DashCard title={"Document"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+                <div className="col-6">
+                    <DashCard title={"Document"} className={"h-100"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+                </div>
 
-                <DashCard title={"Calendrier"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+                <div className="col-6">
+                    <DashCard title={"Calendrier"} className={"h-100"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+                </div>
             </div>
 
             <div className="row mt-5">

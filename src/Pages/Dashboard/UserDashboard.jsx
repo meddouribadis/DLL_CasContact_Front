@@ -42,12 +42,13 @@ function EditUser() {
     }
 
     return (
-        <div className="row">
-            <div className="col">
-                {(users.loading || classes.loading) && <em>Chargement...</em>}
-                {users.error && <span className="text-danger">ERROR: {users.error}</span>}
-                {classes.error && <span className="text-danger">ERROR: {classes.error}</span>}
-                {user !== null && classes.items &&
+        <div className="container">
+            <div className="row">
+                <div className="col">
+                    {(users.loading || classes.loading) && <em>Chargement...</em>}
+                    {users.error && <span className="text-danger">ERROR: {users.error}</span>}
+                    {classes.error && <span className="text-danger">ERROR: {classes.error}</span>}
+                    {user !== null && classes.items &&
                     <form name="form" onSubmit={handleSubmit}>
                         <h1>Modifier un utilisateur : {user.firstName}</h1>
                         <hr/>
@@ -123,7 +124,8 @@ function EditUser() {
                             <button onClick={history.goBack} className="btn btn-link">Annuler</button>
                         </div>
                     </form>
-                }
+                    }
+                </div>
             </div>
         </div>
     );

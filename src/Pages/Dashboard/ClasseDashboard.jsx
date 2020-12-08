@@ -39,41 +39,44 @@ function CreateClasse() {
     }
 
     return (
-        <div className="row">
-            <div className="col">
-                <form name="form" onSubmit={handleSubmit}>
-                    <h1>Créer une classe</h1>
-                    <hr/>
+        <div className="container">
+            <div className="row">
+                <div className="col">
+                    <form name="form" onSubmit={handleSubmit}>
+                        <h1>Créer une classe</h1>
+                        <hr/>
 
-                    <div className="form-group">
-                        <label>Nom de la classe</label>
-                        <input type="text" name="nom" value={classe.nom} onChange={handleChange}
-                               className={'form-control' + (submitted && !classe.nom ? ' is-invalid' : '')}
-                               placeholder="Nom de la classe"/>
-                        {submitted && !classe.nom &&
-                        <div className="invalid-feedback">Le nom de classe est requis</div>
-                        }
-                    </div>
+                        <div className="form-group">
+                            <label>Nom de la classe</label>
+                            <input type="text" name="nom" value={classe.nom} onChange={handleChange}
+                                   className={'form-control' + (submitted && !classe.nom ? ' is-invalid' : '')}
+                                   placeholder="Nom de la classe"/>
+                            {submitted && !classe.nom &&
+                            <div className="invalid-feedback">Le nom de classe est requis</div>
+                            }
+                        </div>
 
-                    <div className="form-group">
-                        <label>Code de la classe</label>
-                        <input type="text" name="code" value={classe.code} onChange={handleChange}
-                               className={'form-control' + (submitted && !classe.code ? ' is-invalid' : '')}
-                               placeholder="Nom de la classe"/>
-                        {submitted && !classe.code &&
-                        <div className="invalid-feedback">Le code de classe est requis</div>
-                        }
-                    </div>
+                        <div className="form-group">
+                            <label>Code de la classe</label>
+                            <input type="text" name="code" value={classe.code} onChange={handleChange}
+                                   className={'form-control' + (submitted && !classe.code ? ' is-invalid' : '')}
+                                   placeholder="Nom de la classe"/>
+                            {submitted && !classe.code &&
+                            <div className="invalid-feedback">Le code de classe est requis</div>
+                            }
+                        </div>
 
-                    <br/>
-                    <div className="form-group">
-                        <button className="btn btn-primary">
-                            Valider
-                        </button>
-                        <Link to="/dashboard/classes" className="btn btn-link">Annuler</Link>
-                    </div>
-                </form>
+                        <br/>
+                        <div className="form-group">
+                            <button className="btn btn-primary">
+                                Valider
+                            </button>
+                            <Link to="/dashboard/classes" className="btn btn-link">Annuler</Link>
+                        </div>
+                    </form>
+                </div>
             </div>
+
         </div>
     );
 }
@@ -124,13 +127,14 @@ function ManageClasses() {
     }
 
     return (
-        <div className="row">
-            <div className="col-12">
-                <h1>Vos classes :</h1>
-                <hr/>
-                {classes.loading && <em>Chargement des classes...</em>}
-                {classes.error && <span className="text-danger">ERROR: {classes.error}</span>}
-                {classes.items &&
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <h1>Vos classes :</h1>
+                    <hr/>
+                    {classes.loading && <em>Chargement des classes...</em>}
+                    {classes.error && <span className="text-danger">ERROR: {classes.error}</span>}
+                    {classes.items &&
                     <ToolkitProvider
                         keyField="id"
                         data={ classes.items }
@@ -149,12 +153,13 @@ function ManageClasses() {
                             )
                         }
                     </ToolkitProvider>
-                }
-            </div>
+                    }
+                </div>
 
-            <div className="col-12">
-                <Link to={{pathname: `/dashboard/classe/create`}} className="btn btn-success">Ajouter une classe</Link>
-                <button onClick={history.goBack} className="btn btn-link">Retour</button>
+                <div className="col-12">
+                    <Link to={{pathname: `/dashboard/classe/create`}} className="btn btn-success">Ajouter une classe</Link>
+                    <button onClick={history.goBack} className="btn btn-link">Retour</button>
+                </div>
             </div>
         </div>
     );
@@ -245,11 +250,12 @@ function EditClasse() {
     }
 
     return (
-        <div className="row">
-            <div className="col">
-                {classes.loading && <em>Chargement...</em>}
-                {classes.error && <span className="text-danger">ERROR: {classes.error}</span>}
-                {classe !== null &&
+        <div className="container">
+            <div className="row">
+                <div className="col">
+                    {classes.loading && <em>Chargement...</em>}
+                    {classes.error && <span className="text-danger">ERROR: {classes.error}</span>}
+                    {classe !== null &&
                     <form name="form" onSubmit={handleSubmit}>
                         <h1>Modifier la classe : {classe.nom}</h1>
                         <hr/>
@@ -282,8 +288,8 @@ function EditClasse() {
                             <Link to="/dashboard/classes" className="btn btn-link">Annuler</Link>
                         </div>
                     </form>
-                }
-                {classe !== null && classe.students.length > 0 &&
+                    }
+                    {classe !== null && classe.students.length > 0 &&
                     <div className="list_students">
                         <h2>Liste des élèves de cette classe</h2>
                         <ToolkitProvider
@@ -305,7 +311,8 @@ function EditClasse() {
                             }
                         </ToolkitProvider>
                     </div>
-                }
+                    }
+                </div>
             </div>
         </div>
     );

@@ -47,7 +47,7 @@ function App() {
 
       <Router history={history}>
         <Switch>
-          <PrivateRoute exact path="/" component={HomePage} />
+          <Route exact path="/" component={HomePage} />
           <PrivateRoute path="/signalement" component={SignalementRouter} />
           <PrivateRoute path="/profile" component={ProfileRouter} />
 
