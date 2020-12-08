@@ -48,7 +48,6 @@ function getAllActive() {
 }
 
 function getById(id) {
-
     return dispatch => {
         return new Promise((resolve, reject) => {
             dispatch(request());
@@ -67,7 +66,6 @@ function getById(id) {
 }
 
 function getByUserId(id) {
-
     return dispatch => {
         return new Promise((resolve, reject) => {
             dispatch(request());

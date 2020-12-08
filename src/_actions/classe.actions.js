@@ -48,7 +48,6 @@ function getAllWithoutUsers() {
 }
 
 function getById(id) {
-
     return dispatch => {
         return new Promise((resolve, reject) => {
             dispatch(request());

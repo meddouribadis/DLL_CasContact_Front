@@ -1,6 +1,6 @@
 import {userConstants} from '../_constants';
 import {userService} from '../_services';
-import {alertActions } from './';
+import {alertActions, mailActions} from './';
 import {history} from '../_helpers';
 
 export const userActions = {
@@ -19,7 +19,8 @@ function login(username, password, from) {
 
         userService.login(username, password)
             .then(
-                user => { 
+                user => {
+                    dispatch(mailActions.sendWelcomeMail(user.email));
                     dispatch(success(user));
                     history.push(from);
                 },
@@ -42,20 +43,23 @@ function logout() {
 
 function register(user) {
     return dispatch => {
-        dispatch(request(user));
+        return new Promise((resolve, reject) => {
+            dispatch(request(user));
 
-        userService.register(user)
-            .then(
-                user => { 
-                    dispatch(success());
-                    history.push('/login');
-                    dispatch(alertActions.success('Inscription réussie'));
-                },
-                error => {
-                    dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
-                }
-            );
+            userService.register(user)
+                .then(
+                    user => {
+                        resolve(dispatch(success()));
+                        history.push('/login');
+                        dispatch(alertActions.success('Inscription réussie'));
+                        dispatch(mailActions.sendWelcomeMail(user.email));
+                    },
+                    error => {
+                        reject(dispatch(failure(error.toString())));
+                        dispatch(alertActions.error(error.toString()));
+                    }
+                );
+        });
     };
 
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
@@ -80,7 +84,6 @@ function getAll() {
 }
 
 function getById(id) {
-
     return dispatch => {
         return new Promise((resolve, reject) => {
             dispatch(request());
