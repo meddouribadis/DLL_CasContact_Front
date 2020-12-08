@@ -5,6 +5,7 @@ import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
 import {CreateClasse, ManageClasses, EditClasse} from "./ClasseDashboard";
 import {EditUser} from "./UserDashboard";
 import {EditSignalement, ManageSignalements} from "./SignalementDashboard";
+import {DashCard} from "../../Components/DashboardCard";
 
 // Routeur Dashboard
 function DashboardRouter() {
@@ -30,13 +31,44 @@ function DashboardRouter() {
 function DashboardHome() {
 
     return (
-        <div className="row">
-            <div className="col">
-                <h1>Tableau de bord !</h1>
-                <hr/>
-                <p>Vous pouvez réalisez les actions suivantes :</p>
-                <Link to={{pathname: "/dashboard/classes/create"}} className="btn btn-link">Créer une classe</Link>
-                <Link to={{pathname: "/dashboard/classes"}} className="btn btn-link">Gérer les classes</Link>
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <h2>Tableau de bord !</h2>
+                </div>
+            </div>
+
+            <div className="row">
+                <DashCard title={"Elèves"}>
+                    <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <div className="d-flex flex-row flex-wrap justify-content-between">
+                        <Link to={{pathname: "/dashboard/classes"}} className="btn btn-outline-primary btn-sm mb-1 ts-buttom">Gérer les classes</Link>
+                        <Link to={{pathname: "/dashboard/classes/create"}} className="btn btn-outline-success btn-sm mb-1 ts-buttom">Créer une classe</Link>
+
+                        <Link to={{pathname: "/dashboard/classes"}} className="btn btn-outline-danger btn-sm mb-1 ts-buttom">Supprimer une classe</Link>
+                    </div>
+                </DashCard>
+
+                <DashCard title={"Classes"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+
+                <DashCard title={"Signalements"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+            </div>
+
+            <div className="row mt-3">
+                <DashCard title={"Document"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+
+                <DashCard title={"Calendrier"}>With supporting text below as a natural lead-in to additional content.</DashCard>
+            </div>
+
+            <div className="row mt-5">
+                <div className="col-12">
+                    <h3>Actions rapides</h3>
+                </div>
+
+                <div className="col-12">
+                    <Link to={{pathname: "/dashboard/classes/create"}} className="btn btn-link">Créer une classe</Link>
+                    <Link to={{pathname: "/dashboard/classes"}} className="btn btn-link">Gérer les classes</Link>
+                </div>
             </div>
         </div>
     );

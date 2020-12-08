@@ -42,22 +42,23 @@ function App() {
           {alert.message && (
             <div className={`alert ${alert.type}`}>{alert.message}</div>
           )}
-          <Router history={history}>
-            <Switch>
-              <PrivateRoute exact path="/" component={HomePage} />
-              <PrivateRoute path="/signalement" component={SignalementRouter} />
-              <PrivateRoute path="/profile" component={ProfileRouter} />
-
-              <SecuredRoute path="/calendrier" component={CalendrierPage} />
-              <SecuredRoute path="/dashboard" component={DashboardRouter} />
-
-              <Route path="/login" component={LoginPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Redirect from="*" to="/" />
-            </Switch>
-          </Router>
         </div>
       </div>
+
+      <Router history={history}>
+        <Switch>
+          <PrivateRoute exact path="/" component={HomePage} />
+          <PrivateRoute path="/signalement" component={SignalementRouter} />
+          <PrivateRoute path="/profile" component={ProfileRouter} />
+
+          <SecuredRoute path="/calendrier" component={CalendrierPage} />
+          <SecuredRoute path="/dashboard" component={DashboardRouter} />
+
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
+          <Redirect from="*" to="/" />
+        </Switch>
+      </Router>
 
       <Footer/>
 
