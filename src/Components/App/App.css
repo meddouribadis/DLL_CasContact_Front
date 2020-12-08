@@ -1,3 +1,8 @@
+body {
+    background-color:var(--background-color);
+    color:var(--color);
+}
+
 .site-header {
     background: rgba(0,0,0,0.8);
     -webkit-backdrop-filter: saturate(180%) blur(20px);

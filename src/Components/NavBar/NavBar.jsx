@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import logo from '../../Assets/univ_evvry_logo.png';
 import {useSelector} from "react-redux";
+import {DarkModeToggle} from "../DarkModeToggle/DarkModeToggle";
 
 function NavBar() {
 
@@ -68,6 +69,7 @@ function NavBar() {
 
             <a className="top-link py-2 d-none d-md-inline-block" href="#">Information</a>
             <UserInfo/>
+            <DarkModeToggle/>
         </div>
       </nav>
   );

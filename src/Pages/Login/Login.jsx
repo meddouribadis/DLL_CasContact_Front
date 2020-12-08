@@ -35,22 +35,19 @@ function LoginPage() {
     }
 
     return (
-        <div className="container">
+        <div className="container my-5">
             <div className="row justify-content-center">
-                <div className="col-md-6 col-12">
-                    <h1>Se connecter</h1>
-                    <hr/>
-                    <form name="form" onSubmit={handleSubmit}>
+                <div className="col-md-6 col-12 py-5 text-center">
+                    <h3>Se connecter</h3>
+                    <form className={"mt-4"} name="form" onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <label>Nom d'utilisateur</label>
-                            <input type="text" name="username" value={username} onChange={handleChange} className={'form-control' + (submitted && !username ? ' is-invalid' : '')} />
+                            <input type="text" name="username" placeholder={"Nom d'utilisateur"} value={username} onChange={handleChange} className={'form-control' + (submitted && !username ? ' is-invalid' : '')} />
                             {submitted && !username &&
                             <div className="invalid-feedback">Username is required</div>
                             }
                         </div>
                         <div className="form-group">
-                            <label>Mot de passe</label>
-                            <input type="password" name="password" value={password} onChange={handleChange} className={'form-control' + (submitted && !password ? ' is-invalid' : '')} />
+                            <input type="password" name="password" placeholder={"Mot de passe"} value={password} onChange={handleChange} className={'form-control' + (submitted && !password ? ' is-invalid' : '')} />
                             {submitted && !password &&
                             <div className="invalid-feedback">Le mot de passe est requis</div>
                             }

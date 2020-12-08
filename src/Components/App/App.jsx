@@ -20,6 +20,7 @@ import {DashboardRouter} from "../../Pages/Dashboard";
 import {SignalementRouter} from "../../Pages/Signalement";
 import {ProfileRouter} from "../../Pages/Profile";
 import {CalendrierPage} from "../../Pages/Calendrier";
+import {DarkModeToggle} from "../DarkModeToggle/DarkModeToggle";
 
 
 function App() {
@@ -36,7 +37,6 @@ function App() {
     <div className={"main"}>
 
       <NavBar/>
-
       <div className="container-fluid">
         <div className="col-md-8 offset-md-2">
           {alert.message && (
