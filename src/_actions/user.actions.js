@@ -20,7 +20,6 @@ function login(username, password, from) {
         userService.login(username, password)
             .then(
                 user => {
-                    dispatch(mailActions.sendWelcomeMail(user.email));
                     dispatch(success(user));
                     history.push(from);
                 },
@@ -50,9 +49,9 @@ function register(user) {
                 .then(
                     user => {
                         resolve(dispatch(success()));
+                        dispatch(mailActions.sendWelcomeMail(user.email));
                         history.push('/login');
                         dispatch(alertActions.success('Inscription réussie'));
-                        dispatch(mailActions.sendWelcomeMail(user.email));
                     },
                     error => {
                         reject(dispatch(failure(error.toString())));
