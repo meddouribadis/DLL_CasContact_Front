@@ -51,7 +51,8 @@ function SignalementInfectionPage() {
     }
 
     return (
-        <div className="row">
+        <div className="container">
+            <div className="row">
 
             <div className="col-12">
                 <h1>Signaler mon infection</h1>
@@ -88,6 +89,7 @@ function SignalementInfectionPage() {
                 </form>
             </div>
 
+        </div>
         </div>
     );
 }
@@ -139,43 +141,45 @@ function SignalementCasPage() {
     }
 
     return (
-        <div className="row">
+        <div className="container">
+            <div className="row">
 
-            <div className="col-12">
-                <h1>Signaler mon cas contact</h1>
-                <hr/>
+                <div className="col-12">
+                    <h1>Signaler mon cas contact</h1>
+                    <hr/>
+                </div>
+
+                <div className="col-12">
+                    <form name="form" onSubmit={handleSubmit}>
+
+                        <div className="form-group">
+                            <label>Votre nom de famille</label>
+                            <input type="text" name="lastName" disabled value={user.lastName} className={'form-control'} />
+                        </div>
+                        <div className="form-group">
+                            <label>Votre prénom</label>
+                            <input type="text" name="firstName" value={user.firstName} disabled className={'form-control'} />
+                        </div>
+
+                        <div className="form-group">
+                            <label>Date de votre cas contact</label>
+                            <input type="date" name="dateDebut" value={signalement.dateDebut} onChange={handleInfectionDateChange} className={'form-control' + (submitted && !signalement.dateDebut ? ' is-invalid' : '')} placeholder="Date de votre infection" />
+                            {submitted && !signalement.dateDebut &&
+                            <div className="invalid-feedback">La date de cas contact est requise</div>
+                            }
+                        </div>
+
+                        <div className="form-group">
+                            <button className="btn btn-primary">
+                                {signalementCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                Valider
+                            </button>
+                            <Link to="/" className="btn btn-link">Annuler</Link>
+                        </div>
+                    </form>
+                </div>
+
             </div>
-
-            <div className="col-12">
-                <form name="form" onSubmit={handleSubmit}>
-
-                    <div className="form-group">
-                        <label>Votre nom de famille</label>
-                        <input type="text" name="lastName" disabled value={user.lastName} className={'form-control'} />
-                    </div>
-                    <div className="form-group">
-                        <label>Votre prénom</label>
-                        <input type="text" name="firstName" value={user.firstName} disabled className={'form-control'} />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Date de votre cas contact</label>
-                        <input type="date" name="dateDebut" value={signalement.dateDebut} onChange={handleInfectionDateChange} className={'form-control' + (submitted && !signalement.dateDebut ? ' is-invalid' : '')} placeholder="Date de votre infection" />
-                        {submitted && !signalement.dateDebut &&
-                        <div className="invalid-feedback">La date de cas contact est requise</div>
-                        }
-                    </div>
-
-                    <div className="form-group">
-                        <button className="btn btn-primary">
-                            {signalementCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Valider
-                        </button>
-                        <Link to="/" className="btn btn-link">Annuler</Link>
-                    </div>
-                </form>
-            </div>
-
         </div>
     );
 }

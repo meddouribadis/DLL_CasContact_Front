@@ -109,33 +109,61 @@ function TeacherHomePage(){
                     <br/>
                 </div>
             </div>
-            <div className="row">
 
-                <div className="col-3">
+            <div className="row">
+                <div className="col-md-3 col-sm-6 col-12 mb-3">
                     <DashCard title={"Calendrier"} className={"h-100"}>
                         <p className="card-text">Visualisez rapidement les signalements reçu sur notre calendrier.</p>
                         <a className="btn btn-primary" href="/calendrier" role="button">Calendrier</a>
                     </DashCard>
                 </div>
-                <div className="col-3">
+                <div className="col-md-3 col-sm-6 col-12 mb-3">
                     <DashCard title={"Elèves"} className={"h-100"}>
                         <p className="card-text">Gérer facilement et rapidement vos élèves.</p>
                         <a className="btn btn-primary" href="#" role="button">Gérer mes élèves</a>
                     </DashCard>
                 </div>
-                <div className="col-3">
+                <div className="col-md-3 col-sm-6 col-12 mb-3">
                     <DashCard title={"Signalements"} className={"h-100"}>
                         <p className="card-text">Accéder aux derniers signalements, cas-contact et documents reçus.</p>
                         <a className="btn btn-warning" href="/dashboard/signalements" role="button">Signalements</a>
                     </DashCard>
                 </div>
-                <div className="col-3">
+                <div className="col-md-3 col-sm-6 col-12 mb-3">
                     <DashCard title={"Classes"} className={"h-100"}>
                         <p className="card-text">Gérer facilement et rapidement vos élèves.</p>
                         <a className="btn btn-primary" href="/dashboard/classes" role="button">Gérer mes classes</a>
                     </DashCard>
                 </div>
+                <div className="col-md-3 col-sm-6 col-12 mb-3">
+                    <DashCard title={"Documents"} className={"h-100"}>
+                        <p className="card-text">Retrouvez et gérer les documents envoyez par vos élèves.</p>
+                        <a className="btn btn-primary" href="/dashboard/classes" role="button">Voir</a>
+                    </DashCard>
+                </div>
+                <div className="col-12">
+                    <a href="/dashboard">Accéder au Dashboard</a>
+                </div>
             </div>
+
+            <div className="row">
+                <div className="col-12">
+                    <h3 className={"my-3"}>Informez vos élèves</h3>
+                </div>
+                <div className="col-sm-6 col-12 mb-3">
+                    <DashCard title={"Je suis cas contact"} className={"h-100"}>
+                        <p className="card-text">Visualisez rapidement les signalements reçu sur notre calendrier.</p>
+                        <a className="btn btn-warning" href="/signalement/cas-contact" role="button">Signaler</a>
+                    </DashCard>
+                </div>
+                <div className="col-sm-6 col-12 mb-3">
+                    <DashCard title={"Je suis infecté"} className={"h-100"}>
+                        <p className="card-text">Gérer facilement et rapidement vos élèves.</p>
+                        <a className="btn btn-danger" href="/signalement/infection" role="button">Signaler</a>
+                    </DashCard>
+                </div>
+            </div>
+
         </div>
     )
 }

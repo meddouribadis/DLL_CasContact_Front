@@ -4,6 +4,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
 import config from 'config';
 import {history} from "../../_helpers";
+import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 function ManageSignalements() {
 
@@ -11,9 +14,41 @@ function ManageSignalements() {
     const signalements = useSelector(state => state.signalements);
     const dispatch = useDispatch();
 
+    // Table
+    const columns = [
+        {
+            dataField: 'dateDebut',
+            text: 'Date début',
+            sort: true
+        }, {
+            dataField: 'dateFin',
+            text: 'Date fin',
+            sort: true
+        }, {
+            dataField: 'User.lastName',
+            text: 'Nom de l\'élève',
+            sort: true
+        }, {
+            text: "Action",
+            dataField: "",
+            formatter: GetActionFormat,
+        }
+    ];
+    const { SearchBar } = Search;
+
     useEffect(() => {
         dispatch(signalementActions.getAll());
     }, []);
+
+    function GetActionFormat(cell, row) {
+        return (
+            <div>
+                <Link to={{pathname: `/dashboard/signalement/edit/${row.id}`}} className="btn btn-outline-primary btn-sm ts-buttom" size="sm">
+                    Voir
+                </Link>
+            </div>
+        );
+    }
 
     return(
         <div className="container">
@@ -24,32 +59,30 @@ function ManageSignalements() {
                     {signalements.loading && <em>Chargement...</em>}
                     {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
                     {signalements.items &&
-                    <table className="table">
-                        <thead className={"thead-dark"}>
-                        <tr>
-                            <th scope="col">Date Début</th>
-                            <th scope="col">Date Fin</th>
-                            <th scope="col">Nom de l'élève</th>
-                            <th scope="col">Actif</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        {signalements.items.map((signalement, index) =>
-                            <tr key={signalement.id}>
-                                <td>{new Date(signalement.dateDebut).toLocaleDateString()}</td>
-                                <td>{new Date(signalement.dateFin).toLocaleDateString()}</td>
-                                <td>{signalement.User.firstName} {signalement.User.lastName}</td>
-                                <td>Non</td>
-                                <td><Link to={{pathname: `/dashboard/signalement/edit/${signalement.id}`}} className="btn btn-primary">Voir</Link></td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
+                    <ToolkitProvider
+                        keyField="id"
+                        data={ signalements.items }
+                        columns={ columns }
+                        search
+                    >
+                        {
+                            props => (
+                                <div>
+                                    <SearchBar { ...props.searchProps } />
+                                    <BootstrapTable
+                                        { ...props.baseProps }
+                                        pagination={ paginationFactory() }
+                                    />
+                                </div>
+                            )
+                        }
+                    </ToolkitProvider>
                     }
+                </div>
+                <div className="col-12 mt-3">
                     <button onClick={history.goBack} className="btn btn-primary">Retour</button>
                 </div>
+
             </div>
         </div>
     )
