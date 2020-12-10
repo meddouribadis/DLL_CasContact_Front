@@ -8,9 +8,14 @@ function DarkModeToggle(){
     const [isDark, setIsDark] = useState(localStorage.getItem("theme") === "dark" ? true : false);
 
     useEffect(() => {
+        localStorage.getItem("theme") !== null ?
         document
             .getElementsByTagName("HTML")[0]
-            .setAttribute("data-theme", localStorage.getItem("theme"));
+            .setAttribute("data-theme", localStorage.getItem("theme"))
+        : document
+                .getElementsByTagName("HTML")[0]
+                .setAttribute("data-theme", "light")
+        ;
     },[]);
 
     function toggleThemeChange(){
