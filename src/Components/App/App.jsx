@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import CookieConsent from "react-cookie-consent";
 
 import { history } from "../../_helpers";
 import { alertActions } from "../../_actions";
@@ -61,6 +62,9 @@ function App() {
       </Router>
 
       <Footer/>
+    <CookieConsent>
+        Ce site utilise des cookies pour le fonctionnement des boutons de partage sur les réseaux sociaux et la mesure d’audience des pages. En poursuivant votre navigation, vous acceptez leurs utilisations.
+    </CookieConsent>
 
     </div>
   );
