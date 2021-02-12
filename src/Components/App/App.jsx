@@ -62,7 +62,11 @@ function App() {
       </Router>
 
       <Footer/>
-    <CookieConsent>
+    <CookieConsent
+        style={{ background: "rgb(50 50 50 / 80%)", backdropFilter: "saturate(180%) blur(20px)", padding: "2rem"}}
+        buttonText="J'accepte"
+        buttonStyle={{ color: "#0c0c0c", fontSize: "1.3rem", padding: ".8rem", borderRadius: "5px"}}
+    >
         Ce site utilise des cookies pour le fonctionnement des boutons de partage sur les réseaux sociaux et la mesure d’audience des pages. En poursuivant votre navigation, vous acceptez leurs utilisations.
     </CookieConsent>
 
