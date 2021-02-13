@@ -169,14 +169,14 @@ function latestNews() {
             <h1>Les dernières news</h1>
             <hr/>
             <div className="card-deck">
-                {newsFeed.articles.slice(0, 3).map((article) =>
-                    <NewsCard article={article}/>
+                {newsFeed.articles.slice(0, 3).map((article, index) =>
+                    <NewsCard key={index} article={article}/>
                 )}
             </div>
             <hr/>
             <div className="card-deck">
-                {newsFeed.articles.slice(3, 6).map((article) =>
-                    <NewsCard article={article}/>
+                {newsFeed.articles.slice(3, 6).map((article, index) =>
+                    <NewsCard key={index} article={article}/>
                 )}
             </div>
         </div>
