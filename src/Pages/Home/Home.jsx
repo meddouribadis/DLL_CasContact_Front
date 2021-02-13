@@ -17,8 +17,8 @@ function LandingPage(){
                             <p className="page-header-text mb-5">SIgnalez rapidement si vous êtes infecté, cas contact ou autre. Retrouvez également les dernières informations concernant le COVID à l'université d'Evry.</p>
                             <a className="btn btn-lg btn-success font-weight-500 mr-3" href="/login">Se connecter
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" className="feather feather-arrow-right ml-2">
+                                     fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                                     strokeLinejoin="round" className="feather feather-arrow-right ml-2">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                     <polyline points="12 5 19 12 12 19"></polyline>
                                 </svg>

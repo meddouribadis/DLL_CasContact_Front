@@ -67,7 +67,7 @@ function NavBar() {
                 <TeacherLinks/>
             }
 
-            <a className="top-link py-2 d-none d-md-inline-block" href="#">Information</a>
+            <a className="top-link py-2 d-none d-md-inline-block" href="/infos">Information</a>
             <UserInfo/>
             <DarkModeToggle/>
         </div>
