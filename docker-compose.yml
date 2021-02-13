@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  web:
+    container_name: ${PROJECT_NAME}_web
+    build:
+      context: ./docker/nginx
+    volumes:
+      - .:/web/app
+    ports:
+      - ${HOST_PORT:-8091}:80
+      - ${HOST_PORT_SSL:-8092}:443
+    networks:
+      - back
+  node:
+    container_name: ${PROJECT_NAME}_node
+    build:
+      context: ./docker/node
+    volumes:
+      - .:/web/app
+    ports:
+      - ${HOST_PORT:-8091}:80
+      - ${HOST_PORT_SSL:-8092}:443
+    networks:
+      - back
+networks:
+  back:
+    name: back
+    driver: bridge
