@@ -44,3 +44,20 @@ body {
 .avatar {
     border-radius: 50%!important;
 }
+
+.card {
+    animation-duration: .5s;
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
