@@ -67,13 +67,13 @@ function StudentHomePage() {
                 </div>
                 <div className="col-sm-6 col-12 mb-3">
                     <DashCard title={"Je suis cas contact"} className={"h-100"}>
-                        <p className="card-text">Visualisez rapidement les signalements reçu sur notre calendrier.</p>
+                        <p className="card-text">Si vous êtes cas contact : signaler ici.</p>
                         <a className="btn btn-warning" href="/signalement/cas-contact" role="button">Signaler</a>
                     </DashCard>
                 </div>
                 <div className="col-sm-6 col-12 mb-3">
                     <DashCard title={"Je suis infecté"} className={"h-100"}>
-                        <p className="card-text">Gérer facilement et rapidement vos élèves.</p>
+                        <p className="card-text">Vous êtes infecté à la COVID-19 : Signaler ici.</p>
                         <a className="btn btn-danger" href="/signalement/infection" role="button">Signaler</a>
                     </DashCard>
                 </div>
@@ -110,7 +110,7 @@ function TeacherHomePage() {
                     <div className="list-group">
                         {signalements.loading && <em>Chargement...</em>}
                         {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
-                        {signalements.items && signalements.items.length == 0 &&
+                        {signalements.items && signalements.items.length === 0 &&
                         <p>Bonne nouvelle, aucun cas contact !</p>}
                         {signalements.items && signalements.items.map((signalement, index) => [
                             <a href={'dashboard/signalement/edit/' + signalement.id} key={signalement.id}
@@ -185,7 +185,6 @@ function TeacherHomePage() {
                     </DashCard>
                 </div>
             </div>
-
         </div>
     )
 }
