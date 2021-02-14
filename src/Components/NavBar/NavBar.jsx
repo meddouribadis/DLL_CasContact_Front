@@ -59,8 +59,8 @@ function NavBar() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg site-header sticky-top">
-            <button className="navbar-toggler m-auto" type="button" data-toggle="collapse" data-target="#collapsingNavbar"
+        <nav className="navbar site-header sticky-top">
+            <button className="navbar-toggler m-auto d-block d-sm-none" type="button" data-toggle="collapse" data-target="#collapsingNavbar"
                     aria-controls="collapsingNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"/>
             </button>
