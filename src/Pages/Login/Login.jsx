@@ -39,15 +39,19 @@ function LoginPage() {
             <div className="row justify-content-center">
                 <div className="col-md-6 col-12 py-5 text-center">
                     <h3>Se connecter</h3>
-                    <form className={"mt-4"} name="form" onSubmit={handleSubmit}>
+                    <form className={"row g-3 mt-4"} name="form" onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <input type="text" name="username" placeholder={"Nom d'utilisateur"} value={username} onChange={handleChange} className={'form-control' + (submitted && !username ? ' is-invalid' : '')} />
+                            <input type="text" name="username" placeholder={"Nom d'utilisateur"} value={username}
+                                   onChange={handleChange}
+                                   className={'form-control' + (submitted && !username ? ' is-invalid' : '')}/>
                             {submitted && !username &&
                             <div className="invalid-feedback">Username is required</div>
                             }
                         </div>
                         <div className="form-group">
-                            <input type="password" name="password" placeholder={"Mot de passe"} value={password} onChange={handleChange} className={'form-control' + (submitted && !password ? ' is-invalid' : '')} />
+                            <input type="password" name="password" placeholder={"Mot de passe"} value={password}
+                                   onChange={handleChange}
+                                   className={'form-control' + (submitted && !password ? ' is-invalid' : '')}/>
                             {submitted && !password &&
                             <div className="invalid-feedback">Le mot de passe est requis</div>
                             }

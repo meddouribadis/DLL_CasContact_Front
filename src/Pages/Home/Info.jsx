@@ -168,15 +168,11 @@ function latestNews() {
         <div className="container">
             <h1>Les dernières news</h1>
             <hr/>
-            <div className="card-deck">
-                {newsFeed.articles.slice(0, 3).map((article, index) =>
-                    <NewsCard key={index} article={article}/>
-                )}
-            </div>
-            <hr/>
-            <div className="card-deck">
-                {newsFeed.articles.slice(3, 6).map((article, index) =>
-                    <NewsCard key={index} article={article}/>
+            <div className="row row-cols-1 row-cols-md-3 g-">
+                {newsFeed.articles.map((article, index) =>
+                    <div className="col mb-3">
+                        <NewsCard className={"h-100"} key={index} article={article}/>
+                    </div>
                 )}
             </div>
         </div>

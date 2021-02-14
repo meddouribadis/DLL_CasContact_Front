@@ -1,9 +1,76 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {documentActions, signalementActions} from "../../_actions";
 import config from 'config';
 
+// Etapes formulaires
+
+function Step1(props) {
+    if (props.currentStep !== 1) {
+        return null
+    }
+
+    return (
+        <Fragment>
+            <h3>Quelle est votre situation ?</h3>
+            <div className="form-check">
+                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                <label className="form-check-label" htmlFor="flexRadioDefault1">
+                    Default radio
+                </label>
+            </div>
+            <div className="form-check">
+                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                       checked/>
+                <label className="form-check-label" htmlFor="flexRadioDefault2">
+                    Default checked radio
+                </label>
+            </div>
+        </Fragment>
+    )
+}
+
+function Step2(props) {
+    if (props.currentStep !== 2) {
+        return null
+    }
+    return (
+        <Fragment>
+            <div className="form-group">
+                <label>Votre nom de famille</label>
+                <input type="text" name="lastName" disabled value={props.user.lastName}
+                       className={'form-control'}/>
+            </div>
+            <div className="form-group">
+                <label>Votre prénom</label>
+                <input type="text" name="firstName" value={props.user.firstName} disabled
+                       className={'form-control'}/>
+            </div>
+
+            <div className="form-group">
+                <label>Date de votre cas contact</label>
+                <input type="date" name="dateDebut" value={props.signalement.dateDebut}
+                       onChange={props.handleInfectionDateChange}
+                       className={'form-control' + (props.submitted && !props.signalement.dateDebut ? ' is-invalid' : '')}
+                       placeholder="Date de votre infection"/>
+                {props.submitted && !props.signalement.dateDebut &&
+                <div className="invalid-feedback">La date de cas contact est requise</div>
+                }
+            </div>
+
+            <div className="form-group">
+                <button className="btn btn-primary">
+                    {props.signalementCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                    Valider
+                </button>
+                <Link to="/" className="btn btn-link">Annuler</Link>
+            </div>
+        </Fragment>
+    )
+}
+
+// Pages
 function SignalementInfectionPage() {
 
     const [submitted, setSubmitted] = useState(false);
@@ -60,7 +127,7 @@ function SignalementInfectionPage() {
                 </div>
 
                 <div className="col-12">
-                    <form name="form" onSubmit={handleSubmit}>
+                    <form name="form" className={"row g-3"} onSubmit={handleSubmit}>
 
                         <div className="form-group">
                             <label>Votre nom de famille</label>
@@ -84,12 +151,15 @@ function SignalementInfectionPage() {
                             }
                         </div>
 
-                        <div className="form-group">
-                            <button className="btn btn-primary">
-                                {signalementCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                                Valider
-                            </button>
-                            <Link to="/" className="btn btn-link">Annuler</Link>
+                        <div className="col-12">
+                            <div className="form-group">
+                                <button className="btn btn-primary">
+                                    {signalementCreation &&
+                                    <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                    Valider
+                                </button>
+                                <Link to="/" className="btn btn-link">Annuler</Link>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -106,12 +176,58 @@ function SignalementCasPage() {
     const user = useSelector(state => state.authentication.user);
     const dispatch = useDispatch();
 
+    const [currentStep, setCurrentStep] = useState(1);
     const [signalement, setSignalement] = useState({
         dateDebut: undefined,
         dateFin: undefined,
         isCasContact: true,
         id_user: '',
     });
+
+    function _next() {
+        let currentStepLocal = currentStep;
+        currentStepLocal = currentStepLocal >= 2 ? 3 : currentStepLocal + 1
+        setCurrentStep(currentStepLocal);
+    }
+
+    function _prev() {
+        let currentStepLocal = currentStep;
+        currentStepLocal = currentStepLocal <= 1 ? 1 : currentStepLocal - 1
+        setCurrentStep(currentStepLocal);
+    }
+
+    function previousButton() {
+        let currentStepLocal = currentStep;
+        if (currentStepLocal !== 1) {
+            return (
+                <button
+                    className="btn btn-secondary"
+                    type="button" onClick={_prev}>
+                    Précedent
+                </button>
+            )
+        }
+        return null;
+    }
+
+    function nextButton() {
+        let currentStepLocal = currentStep;
+        if (currentStepLocal < 3) {
+            return (
+                <button
+                    className="btn btn-primary float-right"
+                    type="button" onClick={_next}>
+                    Suivant
+                </button>
+            )
+        }
+        return null;
+    }
+
+    function handleNextStep(e) {
+        const value = e.target
+        setCurrentStep(value);
+    }
 
     function handleChange(e) {
         const target = e.target;
@@ -155,37 +271,16 @@ function SignalementCasPage() {
                 </div>
 
                 <div className="col-12">
-                    <form name="form" onSubmit={handleSubmit}>
+                    <form name="form" className={"row g-3"} onSubmit={handleSubmit}>
+                        <Step1 submitted={submitted} signalementCreation={signalementCreation} user={user}
+                               currentStep={currentStep} handleChange={handleChange} signalement={signalement}
+                               handleInfectionDateChange={handleInfectionDateChange}/>
+                        <Step2 submitted={submitted} signalementCreation={signalementCreation} user={user}
+                               currentStep={currentStep} handleChange={handleChange} signalement={signalement}
+                               handleInfectionDateChange={handleInfectionDateChange}/>
 
-                        <div className="form-group">
-                            <label>Votre nom de famille</label>
-                            <input type="text" name="lastName" disabled value={user.lastName}
-                                   className={'form-control'}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Votre prénom</label>
-                            <input type="text" name="firstName" value={user.firstName} disabled
-                                   className={'form-control'}/>
-                        </div>
-
-                        <div className="form-group">
-                            <label>Date de votre cas contact</label>
-                            <input type="date" name="dateDebut" value={signalement.dateDebut}
-                                   onChange={handleInfectionDateChange}
-                                   className={'form-control' + (submitted && !signalement.dateDebut ? ' is-invalid' : '')}
-                                   placeholder="Date de votre infection"/>
-                            {submitted && !signalement.dateDebut &&
-                            <div className="invalid-feedback">La date de cas contact est requise</div>
-                            }
-                        </div>
-
-                        <div className="form-group">
-                            <button className="btn btn-primary">
-                                {signalementCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                                Valider
-                            </button>
-                            <Link to="/" className="btn btn-link">Annuler</Link>
-                        </div>
+                        {previousButton()}
+                        {nextButton()}
                     </form>
                 </div>
 
@@ -324,7 +419,8 @@ function VoirSignalement() {
                                 <h6>Documents :</h6>
                                 <ul className="list-group">
                                     {signalement.Documents && signalement.Documents.map((document, index) =>
-                                        <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                                        <li key={index}
+                                            className="list-group-item d-flex justify-content-between align-items-center">
                                             {document.Ref_Doc_Type.nom} - {document.filename}
                                             <a href={`${config.apiUrl}/documents/files/${document.filename}`}
                                                className="badge badge-primary badge-pill" target="_blank">Voir</a>
@@ -335,28 +431,24 @@ function VoirSignalement() {
                             }
                             <hr/>
                             <p className="card-text">Vous pouvez effectuer ces actions :</p>
-                            <button className="btn btn-primary" type="button" data-toggle="collapse"
-                                    data-target="#uploadDocuments" aria-expanded="false"
-                                    aria-controls="uploadDocuments">Uploader des documents
-                            </button>
-                            <div className="collapse multi-collapse" id="uploadDocuments">
-                                <br/>
+                            <p>
+                                <button className="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#uploadDocs" aria-expanded="false"
+                                        aria-controls="uploadDocs">
+                                    Uploader des documents
+                                </button>
+                            </p>
+                            <div className="collapse" id="uploadDocs">
                                 <div className="card card-body">
                                     <h6>Envoyer un justificatif :</h6>
                                     {documents.docTypes &&
-                                    <form name="form" onSubmit={handleSubmit}>
+                                    <form name="form" className={"row g-3"} onSubmit={handleSubmit}>
 
                                         <div className="input-group">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text"
-                                                      id="inputGroupFileAddon01">Fichier</span>
-                                            </div>
-                                            <div className="custom-file">
-                                                <input type="file" onChange={selectFile} className="custom-file-input"
+                                            <div>
+                                                <input type="file" onChange={selectFile} className="form-control"
                                                        id="inputGroupFile01"
                                                        aria-describedby="inputGroupFileAddon01"/>
-                                                <label className="custom-file-label"
-                                                       htmlFor="inputGroupFile01">{selectedFiles !== undefined ? selectedFiles[0].name : 'Choisir un fichier'}</label>
                                             </div>
                                         </div>
                                         <br/>
@@ -368,15 +460,17 @@ function VoirSignalement() {
                                                 onChange={handleChangeSelect}>
                                                 <option value="none" disabled hidden></option>
                                                 {documents.docTypes && documents.docTypes.map((docType, index) =>
-                                                    <option key={docType.id} value={docType.id + ''}>{docType.nom}</option>
+                                                    <option key={docType.id}
+                                                            value={docType.id + ''}>{docType.nom}</option>
                                                 )}
                                             </select>
                                             {submitted && !documentData.type_id &&
-                                            <div className="invalid-feedback">Merci de préciser le type de document</div>
+                                            <div className="invalid-feedback">Merci de préciser le type de
+                                                document</div>
                                             }
                                         </div>
 
-                                        <div className="form-group">
+                                        <div className="col-12">
                                             <button disabled={!selectedFiles} className="btn btn-primary">
                                                 Valider
                                             </button>
@@ -385,6 +479,7 @@ function VoirSignalement() {
                                     }
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

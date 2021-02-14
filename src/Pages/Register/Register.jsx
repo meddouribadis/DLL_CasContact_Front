@@ -60,17 +60,21 @@ function RegisterPage() {
     return (
         <div className="col-lg-8 offset-lg-2">
             <h2>S'enregistrer</h2>
-            <form name="form" onSubmit={handleSubmit}>
+            <form name="form" className={"row g-3"} onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Votre prénom</label>
-                    <input type="text" name="firstName" value={user.firstName} onChange={handleChange} className={'form-control' + (submitted && !user.firstName ? ' is-invalid' : '')} placeholder="Votre prénom" />
+                    <input type="text" name="firstName" value={user.firstName} onChange={handleChange}
+                           className={'form-control' + (submitted && !user.firstName ? ' is-invalid' : '')}
+                           placeholder="Votre prénom"/>
                     {submitted && !user.firstName &&
                     <div className="invalid-feedback">First Name is required</div>
                     }
                 </div>
                 <div className="form-group">
                     <label>Votre nom de famille</label>
-                    <input type="text" name="lastName" value={user.lastName} onChange={handleChange} className={'form-control' + (submitted && !user.lastName ? ' is-invalid' : '')} placeholder="Votre nom" />
+                    <input type="text" name="lastName" value={user.lastName} onChange={handleChange}
+                           className={'form-control' + (submitted && !user.lastName ? ' is-invalid' : '')}
+                           placeholder="Votre nom"/>
                     {submitted && !user.lastName &&
                     <div className="invalid-feedback">Last Name is required</div>
                     }
