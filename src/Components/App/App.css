@@ -7,7 +7,7 @@ body {
     background: var(--header-bg);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
-    padding: .10rem;
+    padding: .9rem;
     margin-bottom: 1.5rem;
 }
 

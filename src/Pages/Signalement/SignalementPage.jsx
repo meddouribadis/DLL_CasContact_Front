@@ -204,40 +204,42 @@ function MesSignalements() {
     }, []);
 
     return (
-        <div className="row">
-            <div className="col-12">
-                <h1>Mes signalements</h1>
-                <hr/>
-                {signalements.loading && <em>Chargement...</em>}
-                {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
-                {signalements.items &&
-                <table className="table">
-                    <thead className={"thead-dark"}>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Date de Début</th>
-                        <th scope="col">Date de Fin</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    {signalements.items.map((signalement, index) =>
-                        <tr key={signalement.id}>
-                            <th scope="row">{signalement.id}</th>
-                            <td>{new Date(signalement.dateDebut).toLocaleDateString()}</td>
-                            <td>{new Date(signalement.dateFin).toLocaleDateString()}</td>
-                            <td>{signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> :
-                                <p className={"btn btn-danger"}>Infection</p>}</td>
-                            <td><Link to={{pathname: `/signalement/view/${signalement.id}`}}
-                                      className="btn btn-primary">Voir</Link></td>
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <h1>Mes signalements</h1>
+                    <hr/>
+                    {signalements.loading && <em>Chargement...</em>}
+                    {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
+                    {signalements.items &&
+                    <table className="table">
+                        <thead className={"thead-dark"}>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Date de Début</th>
+                            <th scope="col">Date de Fin</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Action</th>
                         </tr>
-                    )}
-                    </tbody>
+                        </thead>
 
-                </table>
-                }
+                        <tbody>
+                        {signalements.items.map((signalement, index) =>
+                            <tr key={signalement.id}>
+                                <th scope="row">{signalement.id}</th>
+                                <td>{new Date(signalement.dateDebut).toLocaleDateString()}</td>
+                                <td>{new Date(signalement.dateFin).toLocaleDateString()}</td>
+                                <td>{signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> :
+                                    <p className={"btn btn-danger"}>Infection</p>}</td>
+                                <td><Link to={{pathname: `/signalement/view/${signalement.id}`}}
+                                          className="btn btn-primary">Voir</Link></td>
+                            </tr>
+                        )}
+                        </tbody>
+
+                    </table>
+                    }
+                </div>
             </div>
         </div>
     )
@@ -301,93 +303,94 @@ function VoirSignalement() {
     }
 
     return (
-        <div className="row">
-
-            {signalement === null && <em>Chargement...</em>}
-            {signalement !== null &&
-            <div className="col-12">
-                <h1>Mon signalement</h1>
-                <hr/>
-                <div className="card">
-                    <div className="card-header">
-                        Signalement #{signalement.id}
-                    </div>
-                    <div className="card-body">
-                        <h5 className="card-title">Du {new Date(signalement.dateDebut).toLocaleDateString()} au {new Date(signalement.dateFin).toLocaleDateString()}</h5>
-                        {signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> :
-                            <p className={"btn btn-danger"}>Infection</p>}
-
-                        {signalement.Documents.length > 0 &&
-                        <div>
-                            <h6>Documents :</h6>
-                            <ul className="list-group">
-                                {signalement.Documents && signalement.Documents.map((document, index) =>
-                                    <li className="list-group-item d-flex justify-content-between align-items-center">
-                                        {document.Ref_Doc_Type.nom} - {document.filename}
-                                        <a href={`${config.apiUrl}/documents/files/${document.filename}`}
-                                           className="badge badge-primary badge-pill" target="_blank">Voir</a>
-                                    </li>
-                                )}
-                            </ul>
+        <div className="container">
+            <div className="row">
+                {signalement === null && <em>Chargement...</em>}
+                {signalement !== null &&
+                <div className="col-12">
+                    <h1>Mon signalement</h1>
+                    <hr/>
+                    <div className="card">
+                        <div className="card-header">
+                            Signalement #{signalement.id}
                         </div>
-                        }
-                        <hr/>
-                        <p className="card-text">Vous pouvez effectuer ces actions :</p>
-                        <button className="btn btn-primary" type="button" data-toggle="collapse"
-                                data-target="#uploadDocuments" aria-expanded="false"
-                                aria-controls="uploadDocuments">Uploader des documents
-                        </button>
-                        <div className="collapse multi-collapse" id="uploadDocuments">
-                            <br/>
-                            <div className="card card-body">
-                                <h6>Envoyer un justificatif :</h6>
-                                {documents.docTypes &&
-                                <form name="form" onSubmit={handleSubmit}>
+                        <div className="card-body">
+                            <h5 className="card-title">Du {new Date(signalement.dateDebut).toLocaleDateString()} au {new Date(signalement.dateFin).toLocaleDateString()}</h5>
+                            {signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> :
+                                <p className={"btn btn-danger"}>Infection</p>}
 
-                                    <div className="input-group">
-                                        <div className="input-group-prepend">
+                            {signalement.Documents.length > 0 &&
+                            <div>
+                                <h6>Documents :</h6>
+                                <ul className="list-group">
+                                    {signalement.Documents && signalement.Documents.map((document, index) =>
+                                        <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                                            {document.Ref_Doc_Type.nom} - {document.filename}
+                                            <a href={`${config.apiUrl}/documents/files/${document.filename}`}
+                                               className="badge badge-primary badge-pill" target="_blank">Voir</a>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
+                            }
+                            <hr/>
+                            <p className="card-text">Vous pouvez effectuer ces actions :</p>
+                            <button className="btn btn-primary" type="button" data-toggle="collapse"
+                                    data-target="#uploadDocuments" aria-expanded="false"
+                                    aria-controls="uploadDocuments">Uploader des documents
+                            </button>
+                            <div className="collapse multi-collapse" id="uploadDocuments">
+                                <br/>
+                                <div className="card card-body">
+                                    <h6>Envoyer un justificatif :</h6>
+                                    {documents.docTypes &&
+                                    <form name="form" onSubmit={handleSubmit}>
+
+                                        <div className="input-group">
+                                            <div className="input-group-prepend">
                                                 <span className="input-group-text"
                                                       id="inputGroupFileAddon01">Fichier</span>
+                                            </div>
+                                            <div className="custom-file">
+                                                <input type="file" onChange={selectFile} className="custom-file-input"
+                                                       id="inputGroupFile01"
+                                                       aria-describedby="inputGroupFileAddon01"/>
+                                                <label className="custom-file-label"
+                                                       htmlFor="inputGroupFile01">{selectedFiles !== undefined ? selectedFiles[0].name : 'Choisir un fichier'}</label>
+                                            </div>
                                         </div>
-                                        <div className="custom-file">
-                                            <input type="file" onChange={selectFile} className="custom-file-input"
-                                                   id="inputGroupFile01"
-                                                   aria-describedby="inputGroupFileAddon01"/>
-                                            <label className="custom-file-label"
-                                                   htmlFor="inputGroupFile01">{selectedFiles !== undefined ? selectedFiles[0].name : 'Choisir un fichier'}</label>
+                                        <br/>
+                                        <div className="form-group">
+                                            <label>Type de fichier</label>
+                                            <select
+                                                className={'form-control' + (submitted && !documentData.type_id ? ' is-invalid' : '')}
+                                                id="selectClasseId" name="id_classe" defaultValue={"none"}
+                                                onChange={handleChangeSelect}>
+                                                <option value="none" disabled hidden></option>
+                                                {documents.docTypes && documents.docTypes.map((docType, index) =>
+                                                    <option key={docType.id} value={docType.id + ''}>{docType.nom}</option>
+                                                )}
+                                            </select>
+                                            {submitted && !documentData.type_id &&
+                                            <div className="invalid-feedback">Merci de préciser le type de document</div>
+                                            }
                                         </div>
-                                    </div>
-                                    <br/>
-                                    <div className="form-group">
-                                        <label>Type de fichier</label>
-                                        <select
-                                            className={'form-control' + (submitted && !documentData.type_id ? ' is-invalid' : '')}
-                                            id="selectClasseId" name="id_classe" defaultValue={"none"}
-                                            onChange={handleChangeSelect}>
-                                            <option value="none" disabled hidden></option>
-                                            {documents.docTypes && documents.docTypes.map((docType, index) =>
-                                                <option key={docType.id} value={docType.id + ''}>{docType.nom}</option>
-                                            )}
-                                        </select>
-                                        {submitted && !documentData.type_id &&
-                                        <div className="invalid-feedback">Merci de préciser le type de document</div>
-                                        }
-                                    </div>
 
-                                    <div className="form-group">
-                                        <button disabled={!selectedFiles} className="btn btn-primary">
-                                            Valider
-                                        </button>
-                                    </div>
-                                </form>
-                                }
+                                        <div className="form-group">
+                                            <button disabled={!selectedFiles} className="btn btn-primary">
+                                                Valider
+                                            </button>
+                                        </div>
+                                    </form>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            }
+                }
 
+            </div>
         </div>
     );
 }
