@@ -100,7 +100,7 @@ export function signalements(state = {}, action) {
                 items: state.items.map(signalement => {
                     if (signalement.id === signalement.id) {
                         // make copy of user without 'deleting:true' property
-                        const { deleting, ...userCopy } = classe;
+                        const {deleting, ...userCopy} = signalement;
                         // return copy of user with 'deleteError:[error]' property
                         return { ...userCopy, deleteError: action.error };
                     }

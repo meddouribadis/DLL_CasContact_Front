@@ -1,7 +1,6 @@
 import {courseConstants} from '../_constants';
 import {courseService} from '../_services';
 import { alertActions } from './';
-import { history } from '../_helpers';
 
 export const courseActions = {
     getAll,
