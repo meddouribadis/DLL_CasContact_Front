@@ -170,8 +170,8 @@ function latestNews() {
             <hr/>
             <div className="row row-cols-1 row-cols-md-3 g-">
                 {newsFeed.articles.map((article, index) =>
-                    <div className="col mb-3">
-                        <NewsCard className={"h-100"} key={index} article={article}/>
+                    <div key={index} className="col mb-3">
+                        <NewsCard className={"h-100"} article={article}/>
                     </div>
                 )}
             </div>
