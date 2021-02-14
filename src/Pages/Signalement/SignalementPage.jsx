@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import { Switch, Link, Route, useParams, useRouteMatch} from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {documentActions, signalementActions, userActions} from "../../_actions";
+import {Link, useParams} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {documentActions, signalementActions} from "../../_actions";
 import config from 'config';
 
 function SignalementInfectionPage() {
@@ -22,7 +22,7 @@ function SignalementInfectionPage() {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        setSignalement(signalement => ({ ...signalement, [name]: value }));
+        setSignalement(signalement => ({...signalement, [name]: value}));
     }
 
     function handleInfectionDateChange(e) {
@@ -34,7 +34,7 @@ function SignalementInfectionPage() {
     }
 
     function addDays(date, days) {
-        var result = new Date(date);
+        let result = new Date(date);
         result.setDate(result.getDate() + days);
         return result;
     }
@@ -42,7 +42,7 @@ function SignalementInfectionPage() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        signalement.id_user = user.id+"";
+        signalement.id_user = user.id + "";
         setSubmitted(true);
 
         if (signalement.dateDebut && signalement.dateFin && signalement.id_user && signalement.isCasContact !== null) {
@@ -54,42 +54,47 @@ function SignalementInfectionPage() {
         <div className="container">
             <div className="row">
 
-            <div className="col-12">
-                <h1>Signaler mon infection</h1>
-                <hr/>
+                <div className="col-12">
+                    <h1>Signaler mon infection</h1>
+                    <hr/>
+                </div>
+
+                <div className="col-12">
+                    <form name="form" onSubmit={handleSubmit}>
+
+                        <div className="form-group">
+                            <label>Votre nom de famille</label>
+                            <input type="text" name="lastName" disabled value={user.lastName}
+                                   className={'form-control'}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Votre prénom</label>
+                            <input type="text" name="firstName" value={user.firstName} disabled
+                                   className={'form-control'}/>
+                        </div>
+
+                        <div className="form-group">
+                            <label>Date de votre infection</label>
+                            <input type="date" name="dateDebut" value={signalement.dateDebut}
+                                   onChange={handleInfectionDateChange}
+                                   className={'form-control' + (submitted && !signalement.dateDebut ? ' is-invalid' : '')}
+                                   placeholder="Date de votre infection"/>
+                            {submitted && !signalement.dateDebut &&
+                            <div className="invalid-feedback">La date d'infection est requise</div>
+                            }
+                        </div>
+
+                        <div className="form-group">
+                            <button className="btn btn-primary">
+                                {signalementCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                                Valider
+                            </button>
+                            <Link to="/" className="btn btn-link">Annuler</Link>
+                        </div>
+                    </form>
+                </div>
+
             </div>
-
-            <div className="col-12">
-                <form name="form" onSubmit={handleSubmit}>
-
-                    <div className="form-group">
-                        <label>Votre nom de famille</label>
-                        <input type="text" name="lastName" disabled value={user.lastName} className={'form-control'} />
-                    </div>
-                    <div className="form-group">
-                        <label>Votre prénom</label>
-                        <input type="text" name="firstName" value={user.firstName} disabled className={'form-control'} />
-                    </div>
-
-                    <div className="form-group">
-                        <label>Date de votre infection</label>
-                        <input type="date" name="dateDebut" value={signalement.dateDebut} onChange={handleInfectionDateChange} className={'form-control' + (submitted && !signalement.dateDebut ? ' is-invalid' : '')} placeholder="Date de votre infection" />
-                        {submitted && !signalement.dateDebut &&
-                        <div className="invalid-feedback">La date d'infection est requise</div>
-                        }
-                    </div>
-
-                    <div className="form-group">
-                        <button className="btn btn-primary">
-                            {signalementCreation && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                            Valider
-                        </button>
-                        <Link to="/" className="btn btn-link">Annuler</Link>
-                    </div>
-                </form>
-            </div>
-
-        </div>
         </div>
     );
 }
@@ -112,7 +117,7 @@ function SignalementCasPage() {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        setSignalement(signalement => ({ ...signalement, [name]: value }));
+        setSignalement(signalement => ({...signalement, [name]: value}));
     }
 
     function handleInfectionDateChange(e) {
@@ -124,7 +129,7 @@ function SignalementCasPage() {
     }
 
     function addDays(date, days) {
-        var result = new Date(date);
+        let result = new Date(date);
         result.setDate(result.getDate() + days);
         return result;
     }
@@ -132,7 +137,7 @@ function SignalementCasPage() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        signalement.id_user = user.id+"";
+        signalement.id_user = user.id + "";
         setSubmitted(true);
 
         if (signalement.dateDebut && signalement.dateFin && signalement.id_user && signalement.isCasContact !== null) {
@@ -154,16 +159,21 @@ function SignalementCasPage() {
 
                         <div className="form-group">
                             <label>Votre nom de famille</label>
-                            <input type="text" name="lastName" disabled value={user.lastName} className={'form-control'} />
+                            <input type="text" name="lastName" disabled value={user.lastName}
+                                   className={'form-control'}/>
                         </div>
                         <div className="form-group">
                             <label>Votre prénom</label>
-                            <input type="text" name="firstName" value={user.firstName} disabled className={'form-control'} />
+                            <input type="text" name="firstName" value={user.firstName} disabled
+                                   className={'form-control'}/>
                         </div>
 
                         <div className="form-group">
                             <label>Date de votre cas contact</label>
-                            <input type="date" name="dateDebut" value={signalement.dateDebut} onChange={handleInfectionDateChange} className={'form-control' + (submitted && !signalement.dateDebut ? ' is-invalid' : '')} placeholder="Date de votre infection" />
+                            <input type="date" name="dateDebut" value={signalement.dateDebut}
+                                   onChange={handleInfectionDateChange}
+                                   className={'form-control' + (submitted && !signalement.dateDebut ? ' is-invalid' : '')}
+                                   placeholder="Date de votre infection"/>
                             {submitted && !signalement.dateDebut &&
                             <div className="invalid-feedback">La date de cas contact est requise</div>
                             }
@@ -184,7 +194,7 @@ function SignalementCasPage() {
     );
 }
 
-function MesSignalements(){
+function MesSignalements() {
     const user = useSelector(state => state.authentication.user);
     const signalements = useSelector(state => state.signalements);
     const dispatch = useDispatch();
@@ -193,39 +203,43 @@ function MesSignalements(){
         dispatch(signalementActions.getByUserId(user.id));
     }, []);
 
-    return(
-        <div className="row">
-            <div className="col-12">
-                <h1>Mes signalements</h1>
-                <hr/>
-                {signalements.loading && <em>Chargement...</em>}
-                {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
-                {signalements.items &&
-                <table className="table">
-                    <thead className={"thead-dark"}>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Date de Début</th>
-                        <th scope="col">Date de Fin</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    {signalements.items.map((signalement, index) =>
-                        <tr key={signalement.id}>
-                            <th scope="row">{signalement.id}</th>
-                            <td>{new Date(signalement.dateDebut).toLocaleDateString()}</td>
-                            <td>{new Date(signalement.dateFin).toLocaleDateString()}</td>
-                            <td>{signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> : <p className={"btn btn-danger"}>Infection</p>}</td>
-                            <td><Link to={{pathname: `/signalement/view/${signalement.id}`}} className="btn btn-primary">Voir</Link></td>
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <h1>Mes signalements</h1>
+                    <hr/>
+                    {signalements.loading && <em>Chargement...</em>}
+                    {signalements.error && <span className="text-danger">ERROR: {signalements.error}</span>}
+                    {signalements.items &&
+                    <table className="table">
+                        <thead className={"thead-dark"}>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Date de Début</th>
+                            <th scope="col">Date de Fin</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Action</th>
                         </tr>
-                    )}
-                    </tbody>
+                        </thead>
 
-                </table>
-                }
+                        <tbody>
+                        {signalements.items.map((signalement, index) =>
+                            <tr key={signalement.id}>
+                                <th scope="row">{signalement.id}</th>
+                                <td>{new Date(signalement.dateDebut).toLocaleDateString()}</td>
+                                <td>{new Date(signalement.dateFin).toLocaleDateString()}</td>
+                                <td>{signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> :
+                                    <p className={"btn btn-danger"}>Infection</p>}</td>
+                                <td><Link to={{pathname: `/signalement/view/${signalement.id}`}}
+                                          className="btn btn-primary">Voir</Link></td>
+                            </tr>
+                        )}
+                        </tbody>
+
+                    </table>
+                    }
+                </div>
             </div>
         </div>
     )
@@ -235,7 +249,7 @@ function MesSignalements(){
 
 function VoirSignalement() {
 
-    let { signalementId } = useParams();
+    let {signalementId} = useParams();
     const dispatch = useDispatch();
 
     //Stores
@@ -282,15 +296,15 @@ function VoirSignalement() {
     }
 
     function handleChangeSelect(e) {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         documentData.type_id = value;
-        documentData.signalement_id = signalement.id+'';
-        documentData.user_id = user.id+'';
+        documentData.signalement_id = signalement.id + '';
+        documentData.user_id = user.id + '';
     }
 
     return (
-        <div className="row">
-
+        <div className="container">
+            <div className="row">
                 {signalement === null && <em>Chargement...</em>}
                 {signalement !== null &&
                 <div className="col-12">
@@ -302,20 +316,22 @@ function VoirSignalement() {
                         </div>
                         <div className="card-body">
                             <h5 className="card-title">Du {new Date(signalement.dateDebut).toLocaleDateString()} au {new Date(signalement.dateFin).toLocaleDateString()}</h5>
-                            {signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> : <p className={"btn btn-danger"}>Infection</p>}
+                            {signalement.isCasContact ? <p className={"btn btn-warning"}>Cas Contact</p> :
+                                <p className={"btn btn-danger"}>Infection</p>}
 
                             {signalement.Documents.length > 0 &&
-                                <div>
-                                    <h6>Documents :</h6>
-                                    <ul className="list-group">
-                                        {signalement.Documents && signalement.Documents.map((document, index) =>
-                                            <li className="list-group-item d-flex justify-content-between align-items-center">
-                                                {document.Ref_Doc_Type.nom} - {document.filename}
-                                                <a href={`${config.apiUrl}/documents/files/${document.filename}`} className="badge badge-primary badge-pill" target="_blank">Voir</a>
-                                            </li>
-                                        )}
-                                    </ul>
-                                </div>
+                            <div>
+                                <h6>Documents :</h6>
+                                <ul className="list-group">
+                                    {signalement.Documents && signalement.Documents.map((document, index) =>
+                                        <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                                            {document.Ref_Doc_Type.nom} - {document.filename}
+                                            <a href={`${config.apiUrl}/documents/files/${document.filename}`}
+                                               className="badge badge-primary badge-pill" target="_blank">Voir</a>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
                             }
                             <hr/>
                             <p className="card-text">Vous pouvez effectuer ces actions :</p>
@@ -327,8 +343,8 @@ function VoirSignalement() {
                                 <br/>
                                 <div className="card card-body">
                                     <h6>Envoyer un justificatif :</h6>
-                                    { documents.docTypes &&
-                                        <form name="form" onSubmit={handleSubmit}>
+                                    {documents.docTypes &&
+                                    <form name="form" onSubmit={handleSubmit}>
 
                                         <div className="input-group">
                                             <div className="input-group-prepend">
@@ -336,18 +352,23 @@ function VoirSignalement() {
                                                       id="inputGroupFileAddon01">Fichier</span>
                                             </div>
                                             <div className="custom-file">
-                                                <input type="file" onChange={selectFile} className="custom-file-input" id="inputGroupFile01"
-                                                       aria-describedby="inputGroupFileAddon01" />
-                                                <label className="custom-file-label" htmlFor="inputGroupFile01">{selectedFiles !== undefined ? selectedFiles[0].name : 'Choisir un fichier'}</label>
+                                                <input type="file" onChange={selectFile} className="custom-file-input"
+                                                       id="inputGroupFile01"
+                                                       aria-describedby="inputGroupFileAddon01"/>
+                                                <label className="custom-file-label"
+                                                       htmlFor="inputGroupFile01">{selectedFiles !== undefined ? selectedFiles[0].name : 'Choisir un fichier'}</label>
                                             </div>
                                         </div>
                                         <br/>
                                         <div className="form-group">
                                             <label>Type de fichier</label>
-                                            <select className={'form-control' + (submitted && !documentData.type_id ? ' is-invalid' : '')} id="selectClasseId" name="id_classe" defaultValue={"none"} onChange={handleChangeSelect}>
+                                            <select
+                                                className={'form-control' + (submitted && !documentData.type_id ? ' is-invalid' : '')}
+                                                id="selectClasseId" name="id_classe" defaultValue={"none"}
+                                                onChange={handleChangeSelect}>
                                                 <option value="none" disabled hidden></option>
                                                 {documents.docTypes && documents.docTypes.map((docType, index) =>
-                                                    <option key={docType.id} value={docType.id+''}>{docType.nom}</option>
+                                                    <option key={docType.id} value={docType.id + ''}>{docType.nom}</option>
                                                 )}
                                             </select>
                                             {submitted && !documentData.type_id &&
@@ -369,8 +390,9 @@ function VoirSignalement() {
                 </div>
                 }
 
+            </div>
         </div>
     );
 }
 
-export { SignalementInfectionPage, SignalementCasPage, MesSignalements, VoirSignalement };
+export {SignalementInfectionPage, SignalementCasPage, MesSignalements, VoirSignalement};

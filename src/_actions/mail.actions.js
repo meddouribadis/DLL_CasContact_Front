@@ -1,7 +1,6 @@
 import {mailConstants} from '../_constants';
 import {mailService} from '../_services';
 import {alertActions } from './';
-import {history} from '../_helpers';
 
 export const mailActions = {
     sendWelcomeMail,

@@ -1,1 +1,1 @@
-export µ from './DarkModeToggle';
+export * from './DarkModeToggle';

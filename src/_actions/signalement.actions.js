@@ -1,7 +1,6 @@
 import { signalementConstants } from '../_constants';
 import { signalementService } from '../_services';
 import { alertActions } from './';
-import { history } from '../_helpers';
 
 export const signalementActions = {
     getAll,

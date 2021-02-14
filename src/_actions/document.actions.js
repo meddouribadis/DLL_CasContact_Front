@@ -1,7 +1,6 @@
 import { documentConstants } from '../_constants';
 import { documentService } from '../_services';
 import { alertActions } from './';
-import { history } from '../_helpers';
 
 export const documentActions = {
     getDocTypes,

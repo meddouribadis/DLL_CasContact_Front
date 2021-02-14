@@ -7,7 +7,7 @@ body {
     background: var(--header-bg);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
-    padding: .10rem;
+    padding: .9rem;
     margin-bottom: 1.5rem;
 }
 
@@ -43,4 +43,29 @@ body {
 
 .avatar {
     border-radius: 50%!important;
+}
+
+.card {
+    animation-duration: .5s;
+    animation-name: slidein;
+}
+
+@keyframes slidein {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(255, 255, 255)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler {
+    border-color: rgb(255, 255, 255);
 }
