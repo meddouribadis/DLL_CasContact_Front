@@ -17,14 +17,14 @@ function Step1(props) {
             <div className="form-check">
                 <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
                 <label className="form-check-label" htmlFor="flexRadioDefault1">
-                    Default radio
+                    J'ai côtoyé à l'Université une personne souffrant de la COVID-19
                 </label>
             </div>
             <div className="form-check">
                 <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
                        checked/>
                 <label className="form-check-label" htmlFor="flexRadioDefault2">
-                    Default checked radio
+                    J'ai côtoyé à la maison une personne souffrant de la COVID-19
                 </label>
             </div>
         </Fragment>
@@ -212,7 +212,7 @@ function SignalementCasPage() {
 
     function nextButton() {
         let currentStepLocal = currentStep;
-        if (currentStepLocal < 3) {
+        if (currentStepLocal < 2) {
             return (
                 <button
                     className="btn btn-primary float-right"
