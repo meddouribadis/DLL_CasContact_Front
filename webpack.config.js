@@ -44,7 +44,9 @@ module.exports = {
     },
     externals: {
         config: JSON.stringify({
-            apiUrl: 'http://localhost:4040'
+            apiUrl: 'http://localhost:4040',
+            newsApiKey: '',
+            covidApiKey: ''
         })
     }
 }

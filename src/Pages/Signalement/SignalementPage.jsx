@@ -27,6 +27,13 @@ function Step1(props) {
                     J'ai côtoyé à la maison une personne souffrant de la COVID-19
                 </label>
             </div>
+            <div className={"pt-2"}>
+                <h5>Quelques conseils</h5>
+                <p>• Je suis "personne contact à risques"</p>
+                <p>• Je m'isole</p>
+                <p>• Je contacte mon médecin traitant</p>
+                <p>• Je complète le formulaire</p>
+            </div>
         </Fragment>
     )
 }

@@ -6,6 +6,7 @@ import {CreateClasse, ManageClasses, EditClasse} from "./ClasseDashboard";
 import {EditUser} from "./UserDashboard";
 import {EditSignalement, ManageSignalements} from "./SignalementDashboard";
 import {DashCard} from "../../Components/DashboardCard";
+import {ShowCovidStatistics} from "../Home/Statistics";
 
 // Routeur Dashboard
 function DashboardRouter() {
@@ -22,7 +23,8 @@ function DashboardRouter() {
             <Route path={`${path}/user/edit/:userId`} component={EditUser} />
 
             <Route path={`${path}/signalements`} component={ManageSignalements} />
-            <Route path={`${path}/signalement/edit/:signalementId`} component={EditSignalement} />
+            <Route path={`${path}/signalement/edit/:signalementId`} component={EditSignalement}/>
+            <Route path={`${path}/statistics`} component={ShowCovidStatistics}/>
         </Switch>
     );
 }

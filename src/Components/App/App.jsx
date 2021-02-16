@@ -73,7 +73,8 @@ function App() {
                 buttonStyle={{color: "#0c0c0c", fontSize: "1.3rem", padding: ".8rem", borderRadius: "5px"}}
             >
                 Ce site utilise des cookies pour le fonctionnement des boutons de partage sur les réseaux sociaux et la
-                mesure d’audience des pages. En poursuivant votre navigation, vous acceptez leurs utilisations.
+                mesure d’audience des pages. En poursuivant votre navigation, vous acceptez leurs utilisations. <a
+                href="/cookies">En savoir plus</a>
             </CookieConsent>
 
         </div>

@@ -6,7 +6,35 @@ function Cookies() {
 
     return (
         <div className={"container"}>
-            <h1>A propos des cookies</h1>
+            <h1>Données personnelles</h1>
+            <div className="text">
+                <p>
+                    Les informations recueillies sur ce formulaire sont enregistrées dans un fichier informatisé par <b>A.
+                    KASSY</b>, <b>B. MEDDOURI</b> et <b>J. BOUCAUD</b> pour <b>recenser les élèves et professeurs de
+                    l’UEVE infectés par le coronavirus ou qui ont été en cas contact avec une personne infectée</b>.
+                </p>
+
+                <p>
+                    Les données collectées seront communiquées aux seuls destinataires suivants : <b>administration de
+                    l’UEVE qui gère ces données et professeurs en charge de l’étudiant infecté</b>.
+                    Les données sont conservées pendant <b>6 mois maximum</b>.<br/>
+                    Vous pouvez accéder aux données vous concernant, les rectifier, demander leur effacement ou exercer
+                    votre droit à la limitation du traitement de vos données.<br/><br/>
+                    Consultez le site <a href="cnil.fr">cnil.fr</a> pour plus d’informations sur vos droits.
+                </p>
+
+                <p>
+                    Pour exercer ces droits ou pour toute question sur le traitement de vos données dans ce dispositif,
+                    vous pouvez contacter le service chargé de l’exercice de ces droits: <a
+                    href="mailto:projetphpam@gmail.com">projetphpam@gmail.com</a>.
+                    <br/>
+                    Si vous estimez, après nous avoir contactés, que vos droits « Informatique et Libertés » ne sont pas
+                    respectés, vous pouvez adresser une réclamation à la CNIL.
+                </p>
+            </div>
+
+
+            <h2>A propos des cookies</h2>
             <div className="text">
                 <p>Le site Univ-evry.fr utilise des cookies qui permettent de conserver des données utilisateur afin de
                     faciliter votre navigation. Comment et pourquoi l'Université d'Évry utilise ces fichiers qui ne sont
