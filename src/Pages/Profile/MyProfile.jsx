@@ -5,7 +5,6 @@ import {classeActions, userActions} from "../../_actions";
 
 function MonProfil() {
 
-    const users = useSelector(state => state.users);
     const user = useSelector(state => state.authentication.user);
     const classes = useSelector(state => state.classes);
     const registering = useSelector(state => state.registration.registering);
@@ -17,7 +16,6 @@ function MonProfil() {
     const [userForm, setUser] = useState(user);
 
     useEffect(() => {
-        dispatch(userActions.getAll());
         dispatch(classeActions.getAllWithoutUsers());
     }, []);
 

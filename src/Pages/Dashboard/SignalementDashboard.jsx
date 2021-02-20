@@ -182,8 +182,11 @@ function EditSignalement() {
                                     {signalement.Documents && signalement.Documents.map((document, index) =>
                                         <li key={document.id} className="list-group-item d-flex justify-content-between align-items-center">
                                             {document.Ref_Doc_Type.nom} - {document.filename}
-                                            <button className="btn badge btn-danger badge-danger badge-pill" onClick={() => handleDelete(document.id)}>Supprimer</button>
-                                            <a href={`${config.apiUrl}/documents/files/${document.filename}`} className="badge badge-primary badge-pill" target="_blank">Voir</a>
+                                            <button className="btn badge btn-danger badge-danger badge-pill"
+                                                    onClick={() => handleDelete(document.id)}>Supprimer
+                                            </button>
+                                            <a href={`${config.apiUrl}/documents/files/${document.filename}`}
+                                               className="btn badge bg-primary badge-pill" target="_blank">Voir</a>
                                         </li>
                                     )}
                                 </ul>
@@ -191,27 +194,24 @@ function EditSignalement() {
                             }
                             <hr/>
                             <p className="card-text">Vous pouvez effectuer ces actions :</p>
-                            <button className="btn btn-primary" type="button" data-toggle="collapse"
-                                    data-target="#uploadDocuments" aria-expanded="false"
-                                    aria-controls="uploadDocuments">Uploader des documents
-                            </button>
-                            <button onClick={history.goBack} className="btn btn-link">Annuler</button>
-                            <div className="collapse multi-collapse" id="uploadDocuments">
-                                <br/>
+                            <p>
+                                <button className="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#uploadDocs" aria-expanded="false"
+                                        aria-controls="uploadDocs">
+                                    Uploader des documents
+                                </button>
+                            </p>
+                            <div className="collapse" id="uploadDocs">
                                 <div className="card card-body">
                                     <h6>Envoyer un justificatif :</h6>
                                     {documents.docTypes &&
-                                    <form name="form" onSubmit={handleSubmit}>
+                                    <form name="form" className={"row g-3"} onSubmit={handleSubmit}>
 
                                         <div className="input-group">
-                                            <div className="input-group-prepend">
-                                                <span className="input-group-text"
-                                                      id="inputGroupFileAddon01">Fichier</span>
-                                            </div>
-                                            <div className="custom-file">
-                                                <input type="file" onChange={selectFile} className="custom-file-input" id="inputGroupFile01"
-                                                       aria-describedby="inputGroupFileAddon01" />
-                                                <label className="custom-file-label" htmlFor="inputGroupFile01">{selectedFiles !== undefined ? selectedFiles[0].name : 'Choisir un fichier'}</label>
+                                            <div>
+                                                <input type="file" onChange={selectFile} className="form-control"
+                                                       id="inputGroupFile01"
+                                                       aria-describedby="inputGroupFileAddon01"/>
                                             </div>
                                         </div>
                                         <br/>
@@ -237,6 +237,7 @@ function EditSignalement() {
                                     }
                                 </div>
                             </div>
+                            <button onClick={history.goBack} className="btn btn-link">Annuler</button>
                         </div>
                     </div>
                 </div>

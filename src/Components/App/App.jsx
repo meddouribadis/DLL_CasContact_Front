@@ -20,7 +20,7 @@ import "./App.css";
 import {DashboardRouter} from "../../Pages/Dashboard";
 import {SignalementRouter} from "../../Pages/Signalement";
 import {ProfileRouter} from "../../Pages/Profile";
-import {CalendrierPage} from "../../Pages/Calendrier";
+import {CalendrierEventsPage, CalendrierPage} from "../../Pages/Calendrier";
 
 
 function App() {
@@ -53,7 +53,7 @@ function App() {
                     <PrivateRoute path="/signalement" component={SignalementRouter}/>
                     <PrivateRoute path="/profile" component={ProfileRouter}/>
 
-                    <SecuredRoute path="/calendrier" component={CalendrierPage}/>
+                    <SecuredRoute path="/calendrier" component={CalendrierEventsPage}/>
                     <SecuredRoute path="/dashboard" component={DashboardRouter}/>
 
                     <Route path="/login" component={LoginPage}/>
@@ -73,7 +73,8 @@ function App() {
                 buttonStyle={{color: "#0c0c0c", fontSize: "1.3rem", padding: ".8rem", borderRadius: "5px"}}
             >
                 Ce site utilise des cookies pour le fonctionnement des boutons de partage sur les réseaux sociaux et la
-                mesure d’audience des pages. En poursuivant votre navigation, vous acceptez leurs utilisations.
+                mesure d’audience des pages. En poursuivant votre navigation, vous acceptez leurs utilisations. <a
+                href="/cookies">En savoir plus</a>
             </CookieConsent>
 
         </div>

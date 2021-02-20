@@ -1,13 +1,101 @@
 import React, {useEffect, useState} from "react";
-import {classeActions, userActions} from "../../_actions";
+import {classeActions, signalementActions, userActions} from "../../_actions";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
 import {history} from "../../_helpers";
+import ToolkitProvider, {Search} from "react-bootstrap-table2-toolkit";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+
+function ManageUsers() {
+
+    const user = useSelector(state => state.authentication.user);
+    const users = useSelector(state => state.users);
+    const dispatch = useDispatch();
+
+    // Table
+    const columns = [
+        {
+            dataField: 'id',
+            text: '#',
+            sort: true
+        }, {
+            dataField: 'firstName',
+            text: 'Nom',
+            sort: true
+        }, {
+            dataField: 'lastName',
+            text: 'Prénom',
+            sort: true
+        }, {
+            dataField: 'numEtud',
+            text: 'Numéro Etudiant',
+            sort: true
+        }, {
+            text: "Action",
+            dataField: "",
+            formatter: GetActionFormat,
+        }
+    ];
+    const {SearchBar} = Search;
+
+    useEffect(() => {
+        dispatch(userActions.getAll());
+    }, []);
+
+    function GetActionFormat(cell, row) {
+        return (
+            <div>
+                <Link to={{pathname: `/dashboard/user/edit/${row.id}`}} className="btn btn-primary btn-sm ts-buttom"
+                      size="sm">
+                    Voir
+                </Link>
+            </div>
+        );
+    }
+
+    return (
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <h1>Liste des utilisateurs :</h1>
+                    <hr/>
+                    {users.loading && <em>Chargement...</em>}
+                    {users.error && <span className="text-danger">ERROR: {users.error}</span>}
+                    {users.items &&
+                    <ToolkitProvider
+                        keyField="id"
+                        data={users.items}
+                        columns={columns}
+                        search
+                    >
+                        {
+                            props => (
+                                <div>
+                                    <SearchBar {...props.searchProps} />
+                                    <BootstrapTable
+                                        {...props.baseProps}
+                                        pagination={paginationFactory()}
+                                    />
+                                </div>
+                            )
+                        }
+                    </ToolkitProvider>
+                    }
+                </div>
+                <div className="col-12 mt-3">
+                    <button onClick={history.goBack} className="btn btn-primary">Retour</button>
+                </div>
+
+            </div>
+        </div>
+    )
+}
 
 function EditUser() {
 
     const dispatch = useDispatch();
-    let { userId } = useParams();
+    let {userId} = useParams();
     const users = useSelector(state => state.users);
     const classes = useSelector(state => state.classes);
     const [user, setUser] = useState(null);
@@ -131,4 +219,4 @@ function EditUser() {
     );
 }
 
-export {EditUser};
+export {EditUser, ManageUsers};

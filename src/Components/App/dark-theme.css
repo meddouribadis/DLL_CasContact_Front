@@ -23,3 +23,22 @@ html[data-theme="dark"] .page-link {
     background-color: #2c2c2c;
     border: 1px solid #444b51;
 }
+
+html[data-theme="dark"] .list-group .list-group-item {
+    color: #e7e7e7;
+    background-color: #1c1c1c;
+    border: 1px solid #444b51;
+}
+
+html[data-theme="dark"] .list-group .list-group-item:hover {
+    color: #e7e7e7;
+    background-color: #212121;
+    border: 1px solid #444b51;
+}
+
+html[data-theme="dark"] .modal-content {
+    color: #e7e7e7;
+    background-color: #212121;
+    border: 1px solid #444b51;
+}
+
