@@ -186,7 +186,7 @@ function EditSignalement() {
                                                     onClick={() => handleDelete(document.id)}>Supprimer
                                             </button>
                                             <a href={`${config.apiUrl}/documents/files/${document.filename}`}
-                                               className="badge badge-primary badge-pill" target="_blank">Voir</a>
+                                               className="btn badge bg-primary badge-pill" target="_blank">Voir</a>
                                         </li>
                                     )}
                                 </ul>
