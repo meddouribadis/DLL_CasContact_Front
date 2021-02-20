@@ -135,7 +135,7 @@ function TeacherHomePage() {
                 <div className="col-md-3 col-sm-6 col-12 mb-3">
                     <DashCard title={"Elèves"} className={"h-100"}>
                         <p className="card-text">Gérer facilement et rapidement vos élèves.</p>
-                        <a className="btn btn-primary" href="#" role="button">Gérer mes élèves</a>
+                        <a className="btn btn-primary" href="/dashboard/users" role="button">Gérer mes élèves</a>
                     </DashCard>
                 </div>
                 <div className="col-md-3 col-sm-6 col-12 mb-3">

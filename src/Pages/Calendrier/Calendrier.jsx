@@ -44,16 +44,18 @@ function CalendrierPage() {
     }, []);
 
     return (
-        <div className="col-12">
-            <h1>Calendrier</h1>
-            <hr/>
-            <FullCalendar
-                plugins={[ dayGridPlugin ]}
-                initialView="dayGridMonth"
-                events={signalEvents}
-                locales={frLocale}
-                locale={'fr'}
-            />
+        <div className="container-fluid">
+            <div className="col-12">
+                <h1>Calendrier</h1>
+                <hr/>
+                <FullCalendar
+                    plugins={[dayGridPlugin]}
+                    initialView="dayGridMonth"
+                    events={signalEvents}
+                    locales={frLocale}
+                    locale={'fr'}
+                />
+            </div>
         </div>
     );
 }
