@@ -35,3 +35,10 @@ html[data-theme="dark"] .list-group .list-group-item:hover {
     background-color: #212121;
     border: 1px solid #444b51;
 }
+
+html[data-theme="dark"] .modal-content {
+    color: #e7e7e7;
+    background-color: #212121;
+    border: 1px solid #444b51;
+}
+

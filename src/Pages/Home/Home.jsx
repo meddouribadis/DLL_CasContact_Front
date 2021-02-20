@@ -97,7 +97,7 @@ function TeacherHomePage() {
                     <h1>Accueil</h1>
                     <hr/>
 
-                    <h3>Vos cas contacts</h3>
+                    <h3>Les derniers signalements reçus</h3>
                     <br/>
 
                     <div className="list-group">
