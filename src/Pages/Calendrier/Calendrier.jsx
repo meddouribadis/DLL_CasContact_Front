@@ -5,7 +5,6 @@ import frLocale from '@fullcalendar/core/locales/fr';
 import {Link, useLocation} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {signalementActions, userActions} from '../../_actions';
-import ReactTooltip from 'react-tooltip';
 import {CalendarModal} from "../../Components/CalendarModal";
 
 function CalendrierEventsPage() {
