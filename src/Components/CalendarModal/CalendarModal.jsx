@@ -6,7 +6,7 @@ function CalendarModal(props) {
         <div className={'modal fade' + props.modalClass} id="exampleModal" tabIndex="-1"
              aria-labelledby="exampleModalLabel"
              aria-hidden="true" style={props.modalStyle}>
-            <div className="modal-dialog">
+            <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">{props.event.title}</h5>

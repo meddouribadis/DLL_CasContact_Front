@@ -11,17 +11,16 @@ import {PrivateRoute, SecuredRoute} from "../../_components";
 import {Cookies, HomePage, latestNews} from "../../Pages/Home";
 import {LoginPage} from "../../Pages/Login";
 import {RegisterPage} from "../../Pages/Register";
+import {DashboardRouter} from "../../Pages/Dashboard";
+import {SignalementRouter} from "../../Pages/Signalement";
+import {ProfileRouter} from "../../Pages/Profile";
+import {CalendrierEventsPage, CalendrierPage, CalendrierTeacherPage} from "../../Pages/Calendrier";
 
 // Components
 import {NavBar} from "../NavBar";
 import {Footer} from "../Footer";
 
 import "./App.css";
-import {DashboardRouter} from "../../Pages/Dashboard";
-import {SignalementRouter} from "../../Pages/Signalement";
-import {ProfileRouter} from "../../Pages/Profile";
-import {CalendrierEventsPage, CalendrierPage} from "../../Pages/Calendrier";
-
 
 function App() {
     const alert = useSelector((state) => state.alert);
@@ -53,7 +52,9 @@ function App() {
                     <PrivateRoute path="/signalement" component={SignalementRouter}/>
                     <PrivateRoute path="/profile" component={ProfileRouter}/>
 
-                    <SecuredRoute path="/calendrier" component={CalendrierEventsPage}/>
+                    <PrivateRoute path="/calendrier" component={CalendrierEventsPage}/>
+                    <SecuredRoute path="/calendrier-prof" component={CalendrierTeacherPage}/>
+                    <SecuredRoute path="/calendrier-signalements" component={CalendrierPage}/>
                     <SecuredRoute path="/dashboard" component={DashboardRouter}/>
 
                     <Route path="/login" component={LoginPage}/>

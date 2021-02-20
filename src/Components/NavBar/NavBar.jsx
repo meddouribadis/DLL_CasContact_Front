@@ -53,6 +53,28 @@ function NavBar() {
         );
     }
 
+    function UserLinks() {
+        return (
+            <Fragment>
+                <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Signalements
+                    </a>
+                    <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a className="dropdown-item" href="/signalement/">Mes signalements</a></li>
+                        <li><a className="dropdown-item" href="/signalement/infection">Je suis infecté</a></li>
+                        <li><a className="dropdown-item" href="/signalement/cas-contact">Je suis cas contact</a>
+                        </li>
+                    </ul>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="/calendrier">Calendrier</a>
+                </li>
+            </Fragment>
+        );
+    }
+
     return (
         <nav className="navbar navbar-expand-lg site-header sticky-top">
             <div className="container">
@@ -66,18 +88,7 @@ function NavBar() {
                         </li>
 
                         {user && user.role !== 'TEACHER' &&
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                Signalements
-                            </a>
-                            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a className="dropdown-item" href="/signalement/">Mes signalements</a></li>
-                                <li><a className="dropdown-item" href="/signalement/infection">Je suis infecté</a></li>
-                                <li><a className="dropdown-item" href="/signalement/cas-contact">Je suis cas contact</a>
-                                </li>
-                            </ul>
-                        </li>
+                        <UserLinks/>
                         }
 
                         {user && user.role === 'TEACHER' &&

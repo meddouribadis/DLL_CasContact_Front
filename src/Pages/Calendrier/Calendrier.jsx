@@ -8,13 +8,13 @@ import {signalementActions, userActions} from '../../_actions';
 import {CalendarModal} from "../../Components/CalendarModal";
 
 function CalendrierEventsPage() {
-    const requestOptions = {method: 'GET'};
 
+    const requestOptions = {method: 'GET'};
     const [coursEvents, setCoursEvents] = useState(undefined);
     const [modalStyle, setModalStyle] = useState({display: 'none'});
     const [modalClass, setModalClass] = useState('');
     const [currentEvent, setCurrentEvent] = useState({
-        title: "Sheesh",
+        title: "Title",
         start: " ",
         end: "obj.dtEnd",
         extendedProps: {
@@ -65,6 +65,81 @@ function CalendrierEventsPage() {
         <div className="container-fluid">
             <div className="col-12">
                 <h1>Calendrier</h1>
+                <hr/>
+                <FullCalendar
+                    plugins={[dayGridPlugin]}
+                    initialView="dayGridMonth"
+                    eventClick={handleEventClick}
+                    events={coursEvents}
+                    locales={frLocale}
+                    locale={'fr'}
+                />
+                <CalendarModal event={currentEvent} toggle={toggleModal} modalClass={modalClass}
+                               modalStyle={modalStyle}/>
+            </div>
+        </div>
+    );
+}
+
+function CalendrierTeacherPage() {
+
+    const user = useSelector(state => state.authentication.user);
+    const requestOptions = {method: 'GET'};
+    const [coursEvents, setCoursEvents] = useState(undefined);
+    const [modalStyle, setModalStyle] = useState({display: 'none'});
+    const [modalClass, setModalClass] = useState('');
+    const [currentEvent, setCurrentEvent] = useState({
+        title: "Title",
+        start: " ",
+        end: "obj.dtEnd",
+        extendedProps: {
+            prof: '',
+            location: ''
+        }
+    });
+
+    useEffect(() => {
+        fetch(`http://146.59.195.214:8006/api/v1/events/teacher/didier/courtaud`, requestOptions).then(res => res.json()).then((data, err) => {
+            console.log(data);
+            setCoursEvents(toEvents(data));
+        });
+    }, []);
+
+    function toEvents(source) {
+        let dest = source.map(
+            obj => {
+                return {
+                    'title': obj.matiere,
+                    'start': obj.dtStart,
+                    'end': obj.dtEnd,
+                    'allDay': false,
+                    'prof': obj.prof,
+                    'location': obj.location,
+                    'backgroundColor': '#ffc107',
+                    'borderColor': '#db7800',
+                    'textColor': '#212529'
+                }
+            }
+        );
+
+        return dest;
+    }
+
+    function handleEventClick({event, el}) {
+        console.log(event);
+        setCurrentEvent(event);
+        toggleModal();
+    }
+
+    function toggleModal() {
+        modalClass === 'show' ? setModalClass('') : setModalClass('show');
+        modalStyle.display === 'block' ? setModalStyle({display: 'none'}) : setModalStyle({display: 'block'});
+    }
+
+    return (
+        <div className="container-fluid">
+            <div className="col-12">
+                <h1>Calendrier Prof</h1>
                 <hr/>
                 <FullCalendar
                     plugins={[dayGridPlugin]}
@@ -132,4 +207,4 @@ function CalendrierPage() {
     );
 }
 
-export {CalendrierPage, CalendrierEventsPage};
+export {CalendrierPage, CalendrierEventsPage, CalendrierTeacherPage};
