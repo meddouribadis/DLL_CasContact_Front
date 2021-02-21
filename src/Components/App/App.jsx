@@ -14,7 +14,12 @@ import {RegisterPage} from "../../Pages/Register";
 import {DashboardRouter} from "../../Pages/Dashboard";
 import {SignalementRouter} from "../../Pages/Signalement";
 import {ProfileRouter} from "../../Pages/Profile";
-import {CalendrierEventsPage, CalendrierPage, CalendrierTeacherPage} from "../../Pages/Calendrier";
+import {
+    CalendrierEventsPage,
+    CalendrierPage,
+    CalendrierSignalementsPage,
+    CalendrierTeacherPage
+} from "../../Pages/Calendrier";
 
 // Components
 import {NavBar} from "../NavBar";
@@ -36,13 +41,13 @@ function App() {
         <div className={"main"}>
 
             <NavBar/>
-            <div className="container-fluid">
-                <div className="col-md-8 offset-md-2">
-                    {alert.message && (
+            {alert.message && (
+                <div className="container-fluid">
+                    <div className="col-md-8 offset-md-2">
                         <div className={`alert ${alert.type}`}>{alert.message}</div>
-                    )}
+                    </div>
                 </div>
-            </div>
+            )}
 
             <Router history={history}>
                 <Switch>
@@ -52,9 +57,7 @@ function App() {
                     <PrivateRoute path="/signalement" component={SignalementRouter}/>
                     <PrivateRoute path="/profile" component={ProfileRouter}/>
 
-                    <PrivateRoute path="/calendrier" component={CalendrierEventsPage}/>
-                    <SecuredRoute path="/calendrier-prof" component={CalendrierTeacherPage}/>
-                    <SecuredRoute path="/calendrier-signalements" component={CalendrierPage}/>
+                    <PrivateRoute path="/calendrier" component={CalendrierPage}/>
                     <SecuredRoute path="/dashboard" component={DashboardRouter}/>
 
                     <Route path="/login" component={LoginPage}/>
