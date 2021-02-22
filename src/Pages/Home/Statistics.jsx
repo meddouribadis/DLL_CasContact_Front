@@ -36,7 +36,7 @@ function ShowCovidStatistics() {
     return (
         <div className="row">
             <div className="col">
-                <h3>Statistiques Covid</h3>
+                <h3>Statistiques Covid <small className="h6 text-muted">(Mise à jour à {new Date().toLocaleTimeString()})</small></h3>
                 <br/>
                 {covidData &&
                 <div className="row">

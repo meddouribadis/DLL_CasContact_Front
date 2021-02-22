@@ -24,7 +24,6 @@ function CalendrierEventsPage() {
 
     useEffect(() => {
         fetch(`http://146.59.195.214:8006/api/v1/events/M2MIAA`, requestOptions).then(res => res.json()).then((data, err) => {
-            console.log(data);
             setCoursEvents(toEvents(data));
         });
     }, []);
