@@ -3,6 +3,7 @@ import { authHeader } from '../_helpers';
 
 export const mailService = {
     sendWelcomeMail,
+    sendSignalementMail,
 };
 
 function sendWelcomeMail(to) {
@@ -13,6 +14,20 @@ function sendWelcomeMail(to) {
     };
 
     return fetch(`${config.apiUrl}/mail`, requestOptions)
+        .then(handleResponse)
+        .then(mail => {
+            return mail;
+        });
+}
+
+function sendSignalementMail(to) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: to })
+    };
+
+    return fetch(`${config.apiUrl}/mail/signalement`, requestOptions)
         .then(handleResponse)
         .then(mail => {
             return mail;

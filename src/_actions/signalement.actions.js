@@ -1,6 +1,7 @@
 import { signalementConstants } from '../_constants';
 import { signalementService } from '../_services';
-import { alertActions } from './';
+import {alertActions, mailActions} from './';
+import {history} from "../_helpers";
 
 export const signalementActions = {
     getAll,
@@ -85,12 +86,13 @@ function getByUserId(id) {
 function postSignalement(signalement) {
     return dispatch => {
         dispatch(request(signalement));
-
+        dispatch(mailActions.sendSignalementMail(signalement.mail));
         signalementService.postSignalement(signalement)
             .then(
                 signalement => {
                     dispatch(success(signalement));
                     dispatch(alertActions.success('Signalement crée avec succès'));
+                    history.push("/signalement/view/"+signalement.id);
                 },
                 error => {
                     dispatch(failure(error.toString()));

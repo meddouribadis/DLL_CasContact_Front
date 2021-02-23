@@ -90,6 +90,7 @@ function SignalementInfectionPage() {
         dateFin: undefined,
         isCasContact: false,
         id_user: '',
+        mail: '',
     });
 
     function handleChange(e) {
@@ -117,6 +118,7 @@ function SignalementInfectionPage() {
         e.preventDefault();
 
         signalement.id_user = user.id + "";
+        signalement.mail = user.email + "";
         setSubmitted(true);
 
         if (signalement.dateDebut && signalement.dateFin && signalement.id_user && signalement.isCasContact !== null) {
@@ -189,6 +191,7 @@ function SignalementCasPage() {
         dateFin: undefined,
         isCasContact: true,
         id_user: '',
+        mail: ''
     });
 
     function _next() {
@@ -261,6 +264,7 @@ function SignalementCasPage() {
         e.preventDefault();
 
         signalement.id_user = user.id + "";
+        signalement.mail = user.email + "";
         setSubmitted(true);
 
         if (signalement.dateDebut && signalement.dateFin && signalement.id_user && signalement.isCasContact !== null) {
